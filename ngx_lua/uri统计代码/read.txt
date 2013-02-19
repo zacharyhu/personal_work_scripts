@@ -1,0 +1,29 @@
+对nginx  gate  location的节点统计
+
+location ~ ^/gate_(.*)? {
+                access_by_lua_file "conf/lua/gate_log.lua";
+                proxy_set_header Host  $host;
+                proxy_set_header X-Forwarded-For  $remote_addr;
+                client_max_body_size 50m;
+                client_body_buffer_size 256k;
+                proxy_ignore_client_abort on;
+                proxy_connect_timeout 30;
+                proxy_send_timeout 30;
+                proxy_read_timeout 60;
+                proxy_buffer_size 256k;
+                proxy_buffers 4 256k;
+                proxy_busy_buffers_size 256k;
+                proxy_temp_file_write_size 256k;
+                proxy_next_upstream error timeout invalid_header http_500 http_503 http_404;
+                proxy_pass http://gate;
+                access_log logs/gate_access.log proxy;
+        }
+
+
+
+在access阶段将 
+1./gate_xxxxxx/login?stbid=xxxsssaaa333222的gate_xxx和stbid及remote ip 客户端ip进行入库操作，统计登录信息
+2./gate_xxxxxx/gamestart.action?gameid=111  对gameid 及gate类别和后期uri添加的userid=参数入库，统计用户点击启动游戏的信息
+不管成功与否都return正常的proxy阶段
+
+
