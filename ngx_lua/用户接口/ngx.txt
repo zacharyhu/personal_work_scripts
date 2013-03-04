@@ -1,0 +1,63 @@
+        location /print_post {
+            default_type text/html;
+            content_by_lua '
+                ngx.req.read_body()
+                local args = ngx.req.get_post_args()
+                for k,v in pairs(args) do
+                   ngx.say("k : ",k," value: ",v)
+                end
+            ';
+
+        }
+
+        location /post {
+             content_by_lua '
+             ngx.req.read_body()
+             local args = ngx.req.get_post_args()
+             if not args.uid then
+                 ngx.say("there is no uid")
+                 return
+             end
+             local uid = args.uid
+             local grade = args.grade or "0"
+             local order_second = args.sec or "1296000"
+             local sql = string.format("insert into sgs_user set id=%s,grade=%s,create_time=%s,order_time=%s,order_second=%s",ngx.quote_sql_str(uid),ngx.quote_sql_str(grade),ngx.quote_sql_str(ngx.localtime()),ngx.quote_sql_str(ngx.localtime()),ngx.quote_sql_str(order_second))
+             ngx.say(sql)
+             local res = ngx.location.capture(
+                     "/print_post",
+                     {method = ngx.HTTP_POST,body="type=insert&sql="..sql}
+                )
+               ngx.say(res.body)
+              ngx.say(ngx.time())
+            ';
+        }
+
+
+±í½á¹¹£º
+create table sgs_user ( id int(20), grade int(30), create_time TIMESTAMP, update_time TIMESTAMP, order_time TIMESTAMP, order_second int(50));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
