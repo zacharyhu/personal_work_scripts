@@ -34,7 +34,7 @@
 
 
 表结构：
-create table sgs_user ( id int(20), grade int(30), create_time TIMESTAMP, update_time TIMESTAMP, order_time TIMESTAMP, order_second int(50));
+create table sgs_user ( id int(20), grade int(30), create_time TIMESTAMP, update_time TIMESTAMP, order_time int(50), order_second int(50));
 
 
 
@@ -48,18 +48,42 @@ create table sgs_user ( id int(20), grade int(30), create_time TIMESTAMP, update
 curl --data "uid=133331&grade=50" http://localhost/testdb
 
 
+curl --data "uid=100003&qtype=select_top" http://localhost/testdb
+
+更新订购时间（包括续订 默认15天1296000秒）
+curl --data "uid=100003&qtype=update_order" http://localhost/testdb 可选&sec=11111订购秒数
+# curl --data "uid=100003&qtype=update_order" http://localhost/testdb
+{"errcode":"0","msg":"update game data successfully"}
+
+更新积分
+curl --data "uid=100003&qtype=update_grade&grade=40" http://localhost/testdb
+curl --data "uid=100003&qtype=update_grade&grade=40" http://localhost/testdb
+{"errcode":"0","msg":"update game data successfully"}
+
+查询单人信息
+curl --data "uid=100003&qtype=select_single" http://localhost/testdb
+curl --data "uid=100003&qtype=select_single" http://localhost/testdb
+{"errcode":"0","msg":"[{\"order_second\":3888000,\"grade\":280,\"order_last\":\"3887928\",\"rank\":\"1\",\"order_time\":1362499750}]"}
+
+查询top积分排名
+curl --data "uid=100003&qtype=select_top" http://localhost/testdb 可选&top_num=15 排名数
+# curl --data "uid=100003&qtype=select_top" http://localhost/testdb
+{"errcode":"0","msg":"[{\"grade\":240,\"id\":100003},{\"grade\":50,\"id\":133331},{\"grade\":0,\"id\":100001},{\"grade\":0,\"id\":100002},{\"grade\":0,\"id\":100004}]"}
+
+插入用户数据（初始化）
+# curl --data "uid=100007&qtype=insert" http://localhost/testdb
+{"errcode":"0","msg":"insert game data successfully"}
 
 
-
-
-
-
-
-
-
-
-
-
+错误代码：
+-1    "db instant err" DB初始化错误
+-2    "db connect err" DB连接失败
+-4    errno.." "..err  DB query失败
+-5    "get wrong query type" 传入的querytype有错
+-6    "db set keepalive err" 连接池创建失败
+-7    "there is no uid"  UID没有传入
+-8    "there is no qtype" 没有qtype
+-10   " no res" 操作query没有结果
 
 
 

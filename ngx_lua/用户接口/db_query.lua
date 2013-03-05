@@ -24,9 +24,10 @@ function query_data(qtype,sql)
 
     local res, err, errno, sqlstate = db:query(sql)					
     if not res then
-        ngx.say("bad result: ", err, ": ", errno, ": ", sqlstate, ".")
+        --ngx.say("bad result: ", err, ": ", errno, ": ", sqlstate, ".")
         t.errcode = "-4"
-        t.msg = "db query err sql: "..sql.." qtype: "..qtype
+        t.msg = errno.." "..err
+        --.."db query err sql: "..sql.." qtype: "..qtype
         return t
     end
     if qtype == "insert" or qtype == "delete" then
