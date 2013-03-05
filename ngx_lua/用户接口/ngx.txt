@@ -35,7 +35,7 @@
 
 ±í½á¹¹£º
 create table sgs_user ( id int(20), grade int(30), create_time TIMESTAMP, update_time TIMESTAMP, order_time int(50), order_second int(50));
-
+ALTER TABLE sgs_user ADD PRIMARY KEY (id);
 
 
 
