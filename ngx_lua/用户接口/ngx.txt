@@ -39,7 +39,13 @@ create table sgs_user ( id int(20), grade int(30), create_time TIMESTAMP, update
 
 
 
+        location /testdb {
+           default_type text/hmtl;
+           content_by_lua_file 'conf/lua/db.lua';
+         }
 
+
+curl --data "uid=133331&grade=50" http://localhost/testdb
 
 
 
