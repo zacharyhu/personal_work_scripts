@@ -3,14 +3,18 @@ local db_query = require "resty.db_query"
 local cjson = require "cjson"
 
 --local res = db_query.query_data("insert","insert into sgs_user set id='123456',grade='0',create_time='2013-03-05 16:49:08',order_time='1362473348',order_second='1296000'")
-ngx.req.read_body()
-             local args = ngx.req.get_post_args()
-             if not args.uid then
+--local h = ngx.req.get_headers()
+--    for k, v in pairs(h) do
+--        ngx.say("k: ",k," v: ",v)
+--    end
+             ngx.req.read_body()  --接收参数
+             local args = ngx.req.get_post_args() --将post参数保存至table args
+             if not args.uid then --没有uid参数直接报错代码-7
                  local res = {errcode="-7",msg="there is no uid"}
                  ngx.say(cjson.encode(res))
                  return
              end
-             if not args.qtype then
+             if not args.qtype then --没有qtype参数未知执行类型 直接报错 代码-8
                  local res = {errcode="-8",msg="there is no qtype"}
                  ngx.say(cjson.encode(res))
                  return
@@ -18,15 +22,15 @@ ngx.req.read_body()
              --for k,v in pairs(args) do
              --    ngx.say("k: ",k," v: ",v)
              --end 
-             local uid = args.uid
+             local uid = args.uid    --定义变量
              local qtype = args.qtype
-             local grade = args.grade or "0"
-             local order_second = args.sec or "1296000"
+             local grade = args.grade or "0"  --默认grade值为0，有post参数grade则取参数值
+             local order_second = args.sec or "1296000" --默认订购时间为1296000 15天的秒数，有sec参数则取sec秒数
              
-             local query_type,sql
+             local query_type,sql 
                
-             if qtype == "insert" then
-                  query_type = qtype
+             if qtype == "insert" then  --插入操作，初始化用户数据
+                  query_type = qtype    
                   sql =  string.format("insert into sgs_user set id=%s,grade=%s,create_time=%s,order_time=%s,order_second=%s",ngx.quote_sql_str(uid),ngx.quote_sql_str(grade),ngx.quote_sql_str(ngx.localtime()),ngx.quote_sql_str(ngx.time()),ngx.quote_sql_str(order_second))
              elseif qtype == "select_single" then
                   query_type = "select"
