@@ -1,5 +1,5 @@
 import socket,redis_push
-s=socket.socket()
+s=socket.socket( socket.AF_INET, socket.SOCK_STREAM )
 s.bind(('0.0.0.0',7001))
 s.listen(5)
 while True:

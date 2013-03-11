@@ -1,6 +1,6 @@
-import sys 
+import sys ,mydb
 from redis import Redis 
-redis = Redis(host='10.48.179.115', port=6379) 
+redis = Redis(host='192.168.111.10', port=6379) 
 while True: 
     res = redis.rpop('game101') 
     if res == None: 
@@ -8,3 +8,4 @@ while True:
     else: 
         print str(res)
         res_dic = eval(res)
+        mydb.insert_into_error(res_dic)
