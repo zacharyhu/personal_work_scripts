@@ -4,15 +4,16 @@ import MySQLdb,sys
 
 def insert_into_error(dict_data):
     try:
-        conn=MySQLdb.connect(host="192.168.111.10",user="ngx_test",passwd="ngx_test",db="ngx_test",charset="utf8")  
+        conn=MySQLdb.connect(host="127.0.0.1",user="ngx_test",passwd="ngx_test",db="ngx_test",charset="utf8")  
     except Exception,e:
         print e
         #sys.exit()
     cursor = conn.cursor()    
-    print type(dict_data)
+    #print type(dict_data)
     if not  dict_data["appname"]:
         print "no appname exit"
-        sys.exit()
+        return
+        #sys.exit()
     else:
         appname=dict_data["appname"]
 
@@ -38,7 +39,7 @@ def insert_into_error(dict_data):
         error_msg=dict_data["error_msg"]
 
         
-    print appname+log_time+error_code+error_type+error_msg
+    #print appname+log_time+error_code+error_type+error_msg
     sql_create = '''CREATE TABLE IF NOT EXISTS gs_log_err_%s (
       `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'id 唯一编号',
       `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录时间',
@@ -56,7 +57,7 @@ def insert_into_error(dict_data):
         for row in cursor.fetchall():    
             for r in row:    
                 print r
-        print "secc"
+        #print "secc"
     except Exception,e:
         print e
         if e[0]==1146:
@@ -67,17 +68,33 @@ def insert_into_error(dict_data):
             #sys.exit()
        
     #写入    
-    sql = "insert into gs_log_err_"+appname+"(log_time,error_code,error_type,error_msg) values(%s,%s,%s,%s)"   
+    sql = "insert into gs_log_err_"+appname+"(log_time,error_code,error_type,error_msg) values(%s,%s,%s,%s);"   
     param = (log_time,error_code,error_type,error_msg)
     print (sql % param)
     n = cursor.execute(sql,param)
-    print n
+    #print n
     if n == 1:
         n_commit=cursor.execute("commit;")
-        print n_commit
+        #print n_commit
 
  
 
     #关闭    
     conn.close() 
 
+def get_appname_list():
+    try:
+        conn=MySQLdb.connect(host="127.0.0.1",user="ngx_test",passwd="ngx_test",db="ngx_test",charset="utf8")  
+    except Exception,e:
+        print e
+        #sys.exit()
+    cursor = conn.cursor()
+    try:
+        n = cursor.execute("select distinct appname from gs_log_err_appname_cfg" )
+        for row in cursor.fetchall():
+            return row
+            #for r in row:    
+                #print r
+        #print "secc"
+    except Exception,e:
+        print e
