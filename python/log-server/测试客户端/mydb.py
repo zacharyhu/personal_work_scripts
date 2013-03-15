@@ -4,7 +4,7 @@ import MySQLdb,sys
 
 def insert_into_error(dict_data):
     try:
-        conn=MySQLdb.connect(host="127.0.0.1",user="ngx_test",passwd="ngx_test",db="ngx_test",charset="utf8")  
+        conn=MySQLdb.connect(host="10.224.33.247",user="ngx_test",passwd="ngx_test",db="ngx_test",charset="utf8")  
     except Exception,e:
         print e
         #sys.exit()
@@ -62,7 +62,7 @@ def insert_into_error(dict_data):
         print e
         if e[0]==1146:
             print "table not exist,now create.."
-            n = cursor.execute(sql_create,(appname,appname))    
+            n = cursor.execute(sql_create % (appname,appname))    
             print n
         #else:
             #sys.exit()
@@ -84,17 +84,20 @@ def insert_into_error(dict_data):
 
 def get_appname_list():
     try:
-        conn=MySQLdb.connect(host="127.0.0.1",user="ngx_test",passwd="ngx_test",db="ngx_test",charset="utf8")  
+        conn=MySQLdb.connect(host="10.224.33.247",user="ngx_test",passwd="ngx_test",db="ngx_test",charset="utf8")  
+        cursor = conn.cursor()
+        try:
+            n = cursor.execute("select distinct appname from gs_log_err_appname_cfg" )
+            list_app=[]
+            for row in cursor.fetchall():
+                #return row
+                for r in row:    
+                    print r
+                    list_app.append(r.encode('utf-8'))
+            return list_app
+            #print "secc"
+        except Exception,e:
+            print e
     except Exception,e:
         print e
         #sys.exit()
-    cursor = conn.cursor()
-    try:
-        n = cursor.execute("select distinct appname from gs_log_err_appname_cfg" )
-        for row in cursor.fetchall():
-            return row
-            #for r in row:    
-                #print r
-        #print "secc"
-    except Exception,e:
-        print e

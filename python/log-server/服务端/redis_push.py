@@ -1,6 +1,6 @@
 import time 
 from redis import Redis 
-redis = Redis(host='10.48.179.115', port=6379)
+redis = Redis(host='127.0.0.1', port=6379)
 
 
 def push_data(appname,queue_data):
