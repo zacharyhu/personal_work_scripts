@@ -1,0 +1,45 @@
+<map version="0.9.0_Beta_8" background_color="#ffffff">
+<!-- To view this file, download free mind mapping software Sharemind from http://www.cuifang.com/sharemind -->
+<node CREATED="1363576894582" ID="Freemind_Link_1810868288" MODIFIED="1363576991997" TEXT="&#x6574;&#x4e2a;&#x4e0a;&#x4f20;&#x7cfb;&#x7edf;">
+<node CREATED="1363576996133" ID="Freemind_Link_1521171829" MODIFIED="1363577000176" POSITION="right" TEXT="&#x4e0a;&#x4f20;&#x6587;&#x4ef6;">
+<edge COLOR="#356aa0"/>
+<node CREATED="1363577005052" ID="Freemind_Link_579150341" MODIFIED="1363577020664" TEXT="&#x591a;&#x884c;&#x9009;&#x62e9;&#x6587;&#x4ef6;&#x4e0a;&#x4f20;"/>
+<node CREATED="1363577026485" ID="Freemind_Link_935269265" MODIFIED="1363577045832" TEXT="&#x4e0b;&#x62c9;&#x9009;&#x62e9;&#x5e38;&#x7528;&#x76ee;&#x5f55;"/>
+<node CREATED="1363577046684" ID="Freemind_Link_1160944948" MODIFIED="1363577056400" TEXT="&#x624b;&#x52a8;&#x8f93;&#x5165;&#x76ee;&#x5f55;"/>
+</node>
+<node CREATED="1363577157220" ID="Freemind_Link_1110294826" MODIFIED="1363577185336" POSITION="left" TEXT="&#x5386;&#x53f2;&#x64cd;&#x4f5c;&#x9875;&#x9762;">
+<edge COLOR="#d01f3c"/>
+<node CREATED="1363577187348" ID="Freemind_Link_671937111" MODIFIED="1363577202120" TEXT="&#x67e5;&#x770b;&#x5386;&#x53f2;&#x64cd;&#x4f5c;&#x5217;&#x8868;"/>
+<node CREATED="1363577202844" ID="Freemind_Link_794936727" MODIFIED="1363577220553" TEXT="&#x4f7f;&#x7528;&#x7528;&#x6237;&#x8fc7;&#x6ee4;"/>
+<node CREATED="1363577221804" ID="Freemind_Link_624789534" MODIFIED="1363577247392" TEXT="&#x6309;&#x7167;&#x65f6;&#x95f4;&#x5012;&#x53d9;&#x6392;&#x5e8f;"/>
+</node>
+<node CREATED="1363577273492" ID="Freemind_Link_296743000" MODIFIED="1363577286576" POSITION="right" TEXT="&#x4e0a;&#x4f20;&#x540e;&#x8df3;&#x8f6c;&#x5230;&#x7684;&#x5220;&#x9664;&#x9875;&#x9762;">
+<edge COLOR="#ff7400"/>
+<node CREATED="1363577293908" ID="Freemind_Link_1834297076" MODIFIED="1363577304392" TEXT="&#x9009;&#x62e9;&#x5220;&#x9664;"/>
+<node CREATED="1363577304820" ID="Freemind_Link_606894257" MODIFIED="1363577308440" TEXT="&#x9009;&#x62e9;&#x56de;&#x9000;"/>
+</node>
+<node CREATED="1363577322708" ID="Freemind_Link_310651747" MODIFIED="1363577327208" POSITION="left" TEXT="DB&#x8bbe;&#x8ba1;">
+<edge COLOR="#6bba70"/>
+<node CREATED="1363577329260" ID="Freemind_Link_1005376623" MODIFIED="1363577346457" TEXT="&#x4e0a;&#x4f20;&#x65f6;&#x95f4;"/>
+<node CREATED="1363577346804" ID="Freemind_Link_1091444120" MODIFIED="1363577350376" TEXT="&#x4e0a;&#x4f20;&#x6587;&#x4ef6;&#x540d;"/>
+<node CREATED="1363577350748" ID="Freemind_Link_1016353125" MODIFIED="1363577355376" TEXT="&#x6587;&#x4ef6;&#x54c8;&#x5e0c;&#x503c;"/>
+<node CREATED="1363577356108" ID="Freemind_Link_1334268083" MODIFIED="1363577360808" TEXT="&#x4e0a;&#x4f20;&#x66ff;&#x6362;&#x6587;&#x4ef6;&#x540d;"/>
+<node CREATED="1363577361428" ID="Freemind_Link_1166851471" MODIFIED="1363577366664" TEXT="&#x66ff;&#x6362;&#x6587;&#x4ef6;&#x54c8;&#x5e0c;&#x503c;"/>
+<node CREATED="1363577366932" ID="Freemind_Link_876043770" MODIFIED="1363577381800" TEXT="&#x66ff;&#x6362;&#x6587;&#x4ef6;&#x7684;&#x521b;&#x5efa;&#x65f6;&#x95f4;&#x5c5e;&#x6027;"/>
+<node CREATED="1363577382268" ID="Freemind_Link_1405549931" MODIFIED="1363577410560" TEXT="&#x4e0a;&#x4f20;&#x6587;&#x4ef6;&#x7684;&#x7528;&#x6237;&#xff08;&#x5982;&#x679c;&#x6709;&#xff09;"/>
+<node CREATED="1363577411876" ID="Freemind_Link_848235762" MODIFIED="1363577422336" TEXT="id&#x552f;&#x4e00;&#x6807;&#x8bc6;"/>
+</node>
+<node CREATED="1363577525836" ID="Freemind_Link_488470001" MODIFIED="1363577545072" POSITION="right" TEXT="&#x767b;&#x5f55;&#x9a8c;&#x8bc1;&#x95ee;&#x9898;">
+<edge COLOR="#73880a"/>
+<node CREATED="1363577551740" ID="Freemind_Link_1966023911" MODIFIED="1363577561880" TEXT="&#x4f7f;&#x7528;access by lua&#x505a;&#x767b;&#x5f55;&#x9650;&#x5236;"/>
+</node>
+<node CREATED="1363577694133" ID="Freemind_Link_1981536080" MODIFIED="1363577703257" POSITION="left" TEXT="&#x6587;&#x4ef6;&#x64cd;&#x4f5c;&#x65b9;&#x6cd5;">
+<edge COLOR="#4096ee"/>
+<node CREATED="1363577709620" ID="Freemind_Link_1781036939" MODIFIED="1363577726488" TEXT="&#x6587;&#x4ef6;&#x4e0a;&#x4f20;&#x66ff;&#x6362;"/>
+<node CREATED="1363577726772" ID="Freemind_Link_932268600" MODIFIED="1363577733440" TEXT="&#x6587;&#x4ef6;&#x5220;&#x9664;&#x56de;&#x9000;"/>
+<node CREATED="1363577733980" ID="Freemind_Link_340703964" MODIFIED="1363577741528" TEXT="&#x6587;&#x4ef6;&#x4fe1;&#x606f;&#x83b7;&#x53d6;"/>
+<node CREATED="1363577741820" ID="Freemind_Link_423328840" MODIFIED="1363577749400" TEXT="DB&#x4fe1;&#x606f;&#x83b7;&#x53d6;"/>
+<node CREATED="1363577749676" ID="Freemind_Link_1938509493" MODIFIED="1363577757056" TEXT="DB&#x4fe1;&#x606f;&#x63d2;&#x5165;&#x66f4;&#x65b0;"/>
+</node>
+</node>
+</map>
