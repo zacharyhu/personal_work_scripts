@@ -4,7 +4,7 @@ def get_user_from_ora(stbid):
         new_conn = cx_Oracle.connect("zzdepart","zz#wasu","REPORTDB")
     except Exception,e:
         print e
-    sql = ('select * from rep.subscriberview t where t.resource_no = \'%s\'' % stbid)
+    sql = ('select org_id,account_code,customer_code,resource_no from rep.subscriberview t where t.resource_no = \'%s\'' % stbid)
     #print sql
     cur = new_conn.cursor()
     try:

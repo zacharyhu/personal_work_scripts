@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import socket,ora_user
+import socket,ora_user,datetime
 bind_port=8001
 s=socket.socket( socket.AF_INET, socket.SOCK_STREAM )
 s.bind(('0.0.0.0',8001))
@@ -22,11 +22,13 @@ while True:
                     pass
                 else:
                     stbid=dict_ra['stbid']
-                    print "the stbid is: "+stbid
+                    local_time=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+                    print local_time+" the stbid is: "+stbid
                     num = ora_user.get_user_from_ora(stbid)
-                    str_send = eval(num)
-                    print str_send
-                    cs.send(str(str_send))
+                    print num
+                    #str_send = eval(num)
+                    #print str_send
+                    cs.send(str(num)+"  \r\n-@@-")
             except Exception,e:
                 print e
     except Exception,e:
