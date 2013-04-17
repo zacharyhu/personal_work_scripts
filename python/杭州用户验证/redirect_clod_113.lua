@@ -44,7 +44,7 @@ local function redis_do_result(stbid,action)
 
     red:set_timeout(1000)
 
-    local ok,err = red:connect("127.0.0.1",6379)
+    local ok,err = red:connect("10.48.179.114",6379)
     if not ok then
         ngx.say("failed to connect...",err)
         result = '-1'
@@ -89,10 +89,9 @@ if not check_red or check_red == "-1" then  --get result from redis failed or ke
     local check_hz = check_hz_user_info(args.stbid)  --doing stb check in api
     if check_hz == '1' then  --hz check suc!
         redis_do_result(args.stbid,1)  --set redis key
-    else
-        redis_do_result(args.stbid,2)
     end
     count = check_hz
+    redis_do_result(args.stbid,2)
 else
     count = check_red    --check user from redis
 end
@@ -105,14 +104,14 @@ if count == '1' then
     --    ngx.say("k : ",k," v: ",v)
     --end 
     ngx.req.set_uri_args(args)
-    --ngx.req.set_uri("/gate_hdtv/login",true)
-    ngx.req.set_uri("/hz_gate",true)
+    ngx.req.set_uri("/gate_hdtv/login",true)
+    --ngx.req.set_uri("/hz_gate",true)
     --ngx.say( "HZ user check suc!")
 end
 args.stbId = args.stbid
 ngx.req.set_uri_args(args)
---ngx.req.set_uri("/gate_yun/login",true)
-ngx.req.set_uri("/tz_gate",true)
+ngx.req.set_uri("/gate_yun/login",true)
+--ngx.req.set_uri("/tz_gate",true)
 --ngx.say( "TZ jump to TZgate!")
 
 
