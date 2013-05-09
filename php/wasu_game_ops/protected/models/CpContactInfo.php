@@ -42,7 +42,7 @@ class CpContactInfo extends CActiveRecord
 		return array(
 			array('cp_id, contact_name, contact_phone, contact_email, update_time, contact_type', 'required'),
 			array('cp_id, contact_type', 'numerical', 'integerOnly'=>true),
-			array('contact_name, contact_phone', 'length', 'max'=>20),
+			array('cp_id,contact_name, contact_phone', 'length', 'max'=>20),
 			array('contact_email', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -58,9 +58,12 @@ class CpContactInfo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				//关联cpid到cpname
+				'cpName'=>array(self::BELONGS_TO,'CpBaseInfo','cp_id')
 		);
 	}
-
+	
+	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -68,15 +71,38 @@ class CpContactInfo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cp_id' => 'Cp',
-			'contact_name' => 'Contact Name',
-			'contact_phone' => 'Contact Phone',
-			'contact_email' => 'Contact Email',
-			'update_time' => 'Update Time',
-			'contact_type' => 'Contact Type',
+			'cp_id' => 'Cp名称',
+			'contact_name' => '联系人',
+			'contact_phone' => '电话',
+			'contact_email' => '邮箱',
+			'update_time' => '更新时间',
+			'contact_type' => '联系人类别',
 		);
 	}
 
+	
+	/*
+	 * 配置固定联系人类别
+	 * 
+	 * 
+	 */
+	
+	
+	
+	public function getContactTypeList()
+	{
+		return array('0'=>'商务联系人','1'=>'运营联系人','2'=>'技术联系人');
+	}
+	
+	public function getContactType($typeid)
+	{
+		$ContactTypeList=array('0'=>'商务联系人','1'=>'运营联系人','2'=>'技术联系人');
+		return $ContactTypeList[$typeid];
+	}
+	
+	
+	
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -88,7 +114,7 @@ class CpContactInfo extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
+		//$criteria->compare('id',$this->id);
 		$criteria->compare('cp_id',$this->cp_id);
 		$criteria->compare('contact_name',$this->contact_name,true);
 		$criteria->compare('contact_phone',$this->contact_phone,true);

@@ -29,7 +29,7 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
+				array('label'=>'首页', 'url'=>array('/site/index')),
 // 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'CP信息', 'url'=>array('/CpBaseInfo/', 'view'=>'index')),
 				array('label'=>'CP联系人信息', 'url'=>array('/CpContactInfo/', 'view'=>'index')),
@@ -40,6 +40,7 @@
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
+            
 		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>

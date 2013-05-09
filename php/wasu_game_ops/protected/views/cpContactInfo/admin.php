@@ -45,15 +45,18 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'cp_id',
+		//'id',
+		//'cp_id',
+        array('name'=>'cp_id','value'=>'$data->cpName->cp_name','filter'=>CpBaseInfo::model()->getCpNameList()),
 		'contact_name',
 		'contact_phone',
 		'contact_email',
+        //array('class'=>'CLinkColumn','name'=>'contact_email','url'=>'mailto($data->contact_email)'),
 		'update_time',
 		/*
 		'contact_type',
 		*/
+		array('name'=>'contact_type','value'=>'CpContactInfo::model()->getContactType($data->contact_type)','filter'=>CpContactInfo::model()->getContactTypeList()),
 		array(
 			'class'=>'CButtonColumn',
 		),

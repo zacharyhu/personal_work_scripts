@@ -5,12 +5,9 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cp_id')); ?>:</b>
-	<?php echo CHtml::encode($data->cp_id); ?>
+	<?php echo CHtml::link(CHtml::encode($data->cpName->cp_name),array('CpBaseInfo/view','id'=>$data->cp_id)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_name')); ?>:</b>
@@ -22,7 +19,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_email')); ?>:</b>
-	<?php echo CHtml::encode($data->contact_email); ?>
+	<?php echo CHtml::mailto(CHtml::encode($data->contact_email)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</b>
@@ -30,8 +27,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_type')); ?>:</b>
-	<?php echo CHtml::encode($data->contact_type); ?>
+	<?php echo CHtml::encode(CpContactInfo::model()->getContactType($data->contact_type)); ?>
 	<br />
 
+	<b><?php echo CHtml::encode("可操作"); ?>:</b>
+	<?php echo " | ";$url_link="更新该联系人信息  cpid:".$data->id;echo CHtml::link(CHtml::encode($url_link), array('update', 'id'=>$data->id)); ?>
+	<br />
 
 </div>

@@ -11,14 +11,10 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'cp_id'); ?>
-		<?php echo $form->textField($model,'cp_id'); ?>
+		<?php echo $form->dropDownList($model, 'cp_id', CpBaseInfo::model()->getCpNameList()); ?>
 	</div>
 
 	<div class="row">

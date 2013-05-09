@@ -97,6 +97,17 @@ class CpBaseInfo extends CActiveRecord
 		);
 	}
 
+	public function getCpNameList()
+	{
+		$CpNameList = CpBaseInfo::model()->findAll();
+		return CHtml::listData($CpNameList, 'cp_id', 'cp_name');
+// 		echo '<pre>';
+// 		foreach($CpNameList as $cplist){
+// 			print_r($cplist->attributes);
+// 		}
+// 		echo '</pre>';
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

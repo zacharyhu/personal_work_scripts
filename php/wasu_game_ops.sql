@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2013 年 05 月 07 日 11:28
+-- 生成日期: 2013 年 05 月 09 日 17:26
 -- 服务器版本: 5.5.27
 -- PHP 版本: 5.4.7
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- 数据库: `wasu_game_cp`
+-- 数据库: `wasu_game_ops`
 --
 
 -- --------------------------------------------------------
@@ -149,6 +149,25 @@ CREATE TABLE IF NOT EXISTS `cp_tv_box_info` (
   PRIMARY KEY (`id`),
   KEY `update_time` (`update_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='机顶盒资产管理' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ops_user`
+--
+
+CREATE TABLE IF NOT EXISTS `ops_user` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `login_name` varchar(20) NOT NULL COMMENT '登录名',
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `groupid` int(10) NOT NULL,
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `email` varchar(50) NOT NULL COMMENT '邮箱',
+  `phone` int(20) NOT NULL COMMENT '电话',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login_name` (`login_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='后台用户表' AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
