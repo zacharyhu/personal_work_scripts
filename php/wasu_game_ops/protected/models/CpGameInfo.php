@@ -45,7 +45,7 @@ class CpGameInfo extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('cp_id, game_name, game_id, game_cp_code, game_action_id, game_desc, game_status, game_lobby, game_server_ip, game_server_port', 'required'),
-			array('cp_id, game_id, game_cp_code, game_status, game_lobby', 'numerical', 'integerOnly'=>true),
+			array('cp_id, game_id, game_cp_code, game_status', 'numerical', 'integerOnly'=>true),
 			array('game_name, game_server_port', 'length', 'max'=>20),
 			array('game_action_id, game_server_ip', 'length', 'max'=>40),
 			array('game_desc', 'length', 'max'=>200),
@@ -63,6 +63,8 @@ class CpGameInfo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'cpName'=>array(self::BELONGS_TO,'CpBaseInfo','cp_id'),
+				'LobbyName'=>array(self::BELONGS_TO,'GpLobbyCfg','game_lobby'),
 		);
 	}
 
@@ -73,7 +75,7 @@ class CpGameInfo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cp_id' => 'CpID',
+			'cp_id' => 'Cp名称',
 			'game_name' => '游戏名称',
 			'game_id' => 'GameID',
 			'game_cp_code' => 'Game CpCode',
@@ -86,6 +88,15 @@ class CpGameInfo extends CActiveRecord
 		);
 	}
 
+	
+	/*
+	 * defined lobby id->name
+	 * 
+	 * 
+	 */
+	
+	
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

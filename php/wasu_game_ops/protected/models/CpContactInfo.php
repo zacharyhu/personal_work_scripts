@@ -40,7 +40,7 @@ class CpContactInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cp_id, contact_name, contact_phone, contact_email, update_time, contact_type', 'required'),
+			array('cp_id, contact_name, contact_phone, contact_email, contact_type', 'required'),
 			array('cp_id, contact_type', 'numerical', 'integerOnly'=>true),
 			array('cp_id,contact_name, contact_phone', 'length', 'max'=>20),
 			array('contact_email', 'length', 'max'=>50),

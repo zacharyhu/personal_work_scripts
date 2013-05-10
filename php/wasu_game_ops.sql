@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2013 年 05 月 09 日 17:26
+-- 生成日期: 2013 年 05 月 10 日 17:43
 -- 服务器版本: 5.5.27
 -- PHP 版本: 5.4.7
 
@@ -63,14 +63,15 @@ CREATE TABLE IF NOT EXISTS `cp_contact_info` (
   PRIMARY KEY (`id`),
   KEY `cp_id` (`cp_id`,`update_time`),
   KEY `contact_type` (`contact_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='CP 联系人信息' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='CP 联系人信息' AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `cp_contact_info`
 --
 
 INSERT INTO `cp_contact_info` (`id`, `cp_id`, `contact_name`, `contact_phone`, `contact_email`, `update_time`, `contact_type`) VALUES
-(1, 1, '运营-马事良', '13838383844', 'mashiliang@bianfeng.com', '2013-05-07 09:19:21', 0);
+(1, 1, '马事良', '13838383844', 'mashiliang@bianfeng.com', '2013-05-07 09:19:21', 1),
+(2, 1, '吴家证', '13232222222', 'wujiazheng@bianfeng.com', '2013-05-10 01:31:38', 2);
 
 -- --------------------------------------------------------
 
@@ -92,7 +93,14 @@ CREATE TABLE IF NOT EXISTS `cp_game_info` (
   `game_server_port` varchar(20) NOT NULL COMMENT '端口',
   PRIMARY KEY (`id`),
   KEY `cp_id` (`cp_id`,`game_name`,`game_id`,`game_cp_code`,`game_status`,`game_lobby`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='CP游戏信息表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='CP游戏信息表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `cp_game_info`
+--
+
+INSERT INTO `cp_game_info` (`id`, `cp_id`, `game_name`, `game_id`, `game_cp_code`, `game_action_id`, `game_desc`, `game_status`, `game_lobby`, `game_server_ip`, `game_server_port`) VALUES
+(1, 1, '双扣', 308, 501, '0', '双扣棋牌', 3, 101, '10.48.179.117', '8608');
 
 -- --------------------------------------------------------
 
@@ -149,6 +157,54 @@ CREATE TABLE IF NOT EXISTS `cp_tv_box_info` (
   PRIMARY KEY (`id`),
   KEY `update_time` (`update_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='机顶盒资产管理' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `gp_game_status_cfg`
+--
+
+CREATE TABLE IF NOT EXISTS `gp_game_status_cfg` (
+  `ip` int(10) NOT NULL AUTO_INCREMENT,
+  `game_status` int(10) NOT NULL COMMENT '状态id',
+  `status_name` varchar(30) NOT NULL COMMENT '状态名称',
+  PRIMARY KEY (`ip`),
+  UNIQUE KEY `game_status` (`game_status`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `gp_game_status_cfg`
+--
+
+INSERT INTO `gp_game_status_cfg` (`ip`, `game_status`, `status_name`) VALUES
+(1, 3, '已上线'),
+(2, 2, '业务对接'),
+(3, 1, '技术对接'),
+(4, 0, '适配过程中');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `gp_lobby_cfg`
+--
+
+CREATE TABLE IF NOT EXISTS `gp_lobby_cfg` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `game_lobby` int(10) NOT NULL COMMENT '大厅编号',
+  `lobby_name` varchar(50) NOT NULL COMMENT '大厅名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='游戏大厅配置' AUTO_INCREMENT=6 ;
+
+--
+-- 转存表中的数据 `gp_lobby_cfg`
+--
+
+INSERT INTO `gp_lobby_cfg` (`id`, `game_lobby`, `lobby_name`) VALUES
+(1, 101, '杭州游戏大厅'),
+(2, 104, '拓展游戏大厅'),
+(3, 105, '新疆游戏大厅'),
+(4, 401, '测试平台'),
+(5, 402, '验收平台');
 
 -- --------------------------------------------------------
 

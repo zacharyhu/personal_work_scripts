@@ -11,14 +11,10 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'cp_id'); ?>
-		<?php echo $form->textField($model,'cp_id'); ?>
+		<?php echo $form->dropDownList($model, 'cp_id', CpBaseInfo::model()->getCpNameList()); ?>
 	</div>
 
 	<div class="row">
@@ -48,12 +44,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'game_status'); ?>
-		<?php echo $form->textField($model,'game_status'); ?>
+		<?php echo $form->dropDownList($model, 'game_status', GpGameStatusCfg::model()->getStatusList()); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'game_lobby'); ?>
-		<?php echo $form->textField($model,'game_lobby'); ?>
+		<?php echo $form->dropDownList($model, 'game_lobby', GpLobbyCfg::model()->getLobbyList()); ?>
 	</div>
 
 	<div class="row">

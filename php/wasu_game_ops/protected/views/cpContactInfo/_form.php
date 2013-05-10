@@ -17,7 +17,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'cp_id'); ?>
-		<?php echo $form->textField($model,'cp_id'); ?>
+		<?php echo $form->dropDownList($model,'cp_id',CpBaseInfo::model()->getCpNameList()); ?>
 		<?php echo $form->error($model,'cp_id'); ?>
 	</div>
 
@@ -39,15 +39,10 @@
 		<?php echo $form->error($model,'contact_email'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'update_time'); ?>
-		<?php echo $form->textField($model,'update_time'); ?>
-		<?php echo $form->error($model,'update_time'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'contact_type'); ?>
-		<?php echo $form->textField($model,'contact_type'); ?>
+		<?php echo $form->dropDownList($model,'contact_type',CpContactInfo::model()->getContactTypeList()); ?>
 		<?php echo $form->error($model,'contact_type'); ?>
 	</div>
 

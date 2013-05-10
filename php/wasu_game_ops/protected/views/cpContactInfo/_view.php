@@ -11,7 +11,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_name')); ?>:</b>
-	<?php echo CHtml::encode($data->contact_name); ?>
+	<?php echo CHtml::link(CHtml::encode($data->contact_name), array('view', 'id'=>$data->id)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_phone')); ?>:</b>
@@ -31,7 +31,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode("可操作"); ?>:</b>
-	<?php echo " | ";$url_link="更新该联系人信息  cpid:".$data->id;echo CHtml::link(CHtml::encode($url_link), array('update', 'id'=>$data->id)); ?>
+	<?php echo " | ";echo CHtml::link(CHtml::encode("更新该联系人信息 "), array('update', 'id'=>$data->id)); ?>
 	<br />
 
 </div>

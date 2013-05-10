@@ -3,8 +3,8 @@
 /* @var $model CpContactInfo */
 
 $this->breadcrumbs=array(
-	'Cp Contact Infos'=>array('index'),
-	'Manage',
+	'CP联系人信息'=>array('index'),
+	'管理',
 );
 
 $this->menu=array(
@@ -26,14 +26,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Cp Contact Infos</h1>
+<h1>管理联系人信息</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('高级搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
@@ -47,11 +43,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		//'id',
 		//'cp_id',
-        array('name'=>'cp_id','value'=>'$data->cpName->cp_name','filter'=>CpBaseInfo::model()->getCpNameList()),
-		'contact_name',
-		'contact_phone',
-		'contact_email',
-        //array('class'=>'CLinkColumn','name'=>'contact_email','url'=>'mailto($data->contact_email)'),
+        array('name'=>'cp_id','value'=>'$data->cpName->cp_name','filter'=>CpBaseInfo::model()->getCpNameList(),'htmlOptions'=>array(
+		'width'=>'12%',),),
+		array('name'=>'contact_name','value'=>'$data->contact_name','htmlOptions'=>array('width'=>'12%',),),
+		array('name'=>'contact_phone','value'=>'$data->contact_phone','htmlOptions'=>array('width'=>'15%',),),
+		//'contact_email',
+        array('type'=>'raw','name'=>'contact_email','value'=>'CHtml::mailto($data->contact_email)','htmlOptions'=>array('width'=>'20%',),),
 		'update_time',
 		/*
 		'contact_type',

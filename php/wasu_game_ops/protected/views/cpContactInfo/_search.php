@@ -23,23 +23,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'contact_phone'); ?>
-		<?php echo $form->textField($model,'contact_phone',array('size'=>20,'maxlength'=>20)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'contact_email'); ?>
-		<?php echo $form->textField($model,'contact_email',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'update_time'); ?>
-		<?php echo $form->textField($model,'update_time'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'contact_type'); ?>
-		<?php echo $form->textField($model,'contact_type'); ?>
+		<?php echo $form->dropDownList($model, 'contact_type', CpContactInfo::model()->getContactTypeList()); ?>
 	</div>
 
 	<div class="row buttons">

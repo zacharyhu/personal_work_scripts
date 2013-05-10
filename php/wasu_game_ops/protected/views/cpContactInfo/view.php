@@ -3,8 +3,8 @@
 /* @var $model CpContactInfo */
 
 $this->breadcrumbs=array(
-	'Cp Contact Infos'=>array('index'),
-	$model->id,
+	'CP联系人信息'=>array('index'),
+	$model->contact_name,
 );
 
 $this->menu=array(
@@ -16,17 +16,20 @@ $this->menu=array(
 );
 ?>
 
-<h1>View CpContactInfo #<?php echo $model->id; ?></h1>
+<h1>联系人详情：     <?php echo $model->contact_name; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		//'id',
 		//'cp_id',
+        array('label'=>'厂商','type'=>'raw','value'=>CHtml::link(CHtml::encode($model->cpName->cp_name),array('cpContactInfo/update','id'=>$model->cp_id))),
 		'contact_name',
 		'contact_phone',
-		'contact_email',
+		 array('label'=>'邮箱','type'=>'raw','value'=>CHtml::mailto($model->contact_email)),
 		'update_time',
-		'contact_type',
+        array('label'=>'联系人类别','value'=>CpContactInfo::model()->getContactType($model->contact_type)),
+        array('label'=>'操作 ','type'=>'raw','value'=>CHtml::link(CHtml::encode('更新联系人信息'),array('cpContactInfo/update','id'=>$model->id))),
+		//'contact_type',
 	),
 )); ?>

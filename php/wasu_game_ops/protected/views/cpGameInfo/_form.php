@@ -17,7 +17,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'cp_id'); ?>
-		<?php echo $form->textField($model,'cp_id'); ?>
+		<?php echo $form->dropDownList($model, 'cp_id', CpBaseInfo::model()->getCpNameList()); ?>
 		<?php echo $form->error($model,'cp_id'); ?>
 	</div>
 
@@ -59,7 +59,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'game_lobby'); ?>
-		<?php echo $form->textField($model,'game_lobby'); ?>
+		<?php echo $form->dropDownList($model, 'game_lobby', GpLobbyCfg::model()->getLobbyList()); ?>
 		<?php echo $form->error($model,'game_lobby'); ?>
 	</div>
 
