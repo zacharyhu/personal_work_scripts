@@ -44,7 +44,7 @@ local function redis_do_result(stbid,action)
 
     red:set_timeout(1000)
 
-    local ok,err = red:connect("127.0.0.1",6379)
+    local ok,err = red:connect("10.48.179.114",6379)
     if not ok then
         ngx.say("failed to connect...",err)
         result = '-1'
@@ -100,18 +100,13 @@ end
 args.count = count
 if count == '1' then
     args.lobbyid = 101
-    --for k,v in pairs(args) do
-    --    ngx.say("k : ",k," v: ",v)
-    --end 
-    ngx.req.set_uri_args(args)
-    --ngx.req.set_uri("/gate_hdtv/login",true)
-    ngx.req.set_uri("/hz_gate",true)
-    --ngx.say( "HZ user check suc!")
+   else
+    args.lobbyid = 104
 end
 args.stbId = args.stbid
 ngx.req.set_uri_args(args)
 --ngx.req.set_uri("/gate_yun/login",true)
-ngx.req.set_uri("/tz_gate",true)
+ngx.req.set_uri("/game_login",true)
 --ngx.say( "TZ jump to TZgate!")
 
 

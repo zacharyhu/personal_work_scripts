@@ -34,11 +34,18 @@ local function billing(userid,lobbyid,deductfee,cpcode,actionid)
     gate_list['104'] = {}
     gate_list['104'].ip ="10.48.179.122"
     gate_list['104'].port=7505
-   
+    if lobbyid == '104' or lobbyid == '101' then
+        charge_ip = gate_list[lobbyid].ip
+        charge_port = gate_list[lobbyid].port
+    else
+        charge_ip = gate_list['104'].ip
+        charge_port = gate_list['104'].port
+    end  
+
     local sock = ngx.socket.tcp()
     sock:settimeout(5000)
     --ngx.say(gate_list[lobbyid].ip," ip ,, ",gate_list[lobbyid].port )
-    local ok,err = sock:connect(gate_list[lobbyid].ip,gate_list[lobbyid].port)
+    local ok,err = sock:connect(charge_ip,charge_port)
     if not ok then
         ngx.say("failed to connect to the uinfo server")
     end
@@ -64,7 +71,7 @@ local function billing(userid,lobbyid,deductfee,cpcode,actionid)
     --ngx.say("success read line : ",data)
     --data format: "<package><response service="CP_DEDUCT_1000" state="-ERR" code="1005" ><user userid="2519273" deductfee="200" cpcode="400"></user></response><package>"
     local tbl_res = {}
-    for k,v in string.gmatch(data,"(%w+)=\"([-_%w]+)") do
+    for k,v in string.gmatch(data,"(%w+)=\"([-_+%w]+)") do
          tbl_res[k] = v
     end
     

@@ -15,7 +15,7 @@ end
 local function gate_register(stbid,lobbyid)
     local gate_list = {}
     gate_list['101']='http://10.48.179.101:8080/gate_hz/apply'
-    gate_list['104']='http://10.0.116.87:8080/castellan/apply'
+    gate_list['104']='http://10.48.179.101:8080/gate_hz/apply'
     --ngx.say(" tz gate addr : ",gate_list[lobbyid]," stbid:  ",stbid)
     local http = require "resty.http"
     local hc  = http.new()
@@ -26,13 +26,17 @@ local function gate_register(stbid,lobbyid)
     local ok,code,headers,status,body = hc:request {
           url = url_req, -- lobby url
           method = "GET",
+          timeout = 8000,
     }  
    
     --ngx.say(ok)
     --ngx.say(code)
     if code == 200 then
-        t_res=body
-        return t_res
+        res_string=body
+        local cjson = require "cjson"
+        t_res=cjson.decode(res_string)
+        t_res["lobbyid"] = lobbyid
+        return cjson.encode(t_res)
     end
     local t_res = {}
     t_res = '{"returnCode":"1","ErrorCode":"1010","ReturnMessage":"注册请求失败"}'
@@ -46,5 +50,4 @@ local res = gate_register(args.stbid,args.lobbyid)
 --local cjson = require "cjson"
 --ngx.say(cjson.encode(res))
 ngx.say(res)
-
 
