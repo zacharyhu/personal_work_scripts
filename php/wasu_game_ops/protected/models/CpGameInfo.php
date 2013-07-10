@@ -64,7 +64,7 @@ class CpGameInfo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 				'cpName'=>array(self::BELONGS_TO,'CpBaseInfo','cp_id'),
-				'LobbyName'=>array(self::BELONGS_TO,'GpLobbyCfg','game_lobby'),
+// 				'LobbyName'=>array(self::BELONGS_TO,'GpLobbyCfg','game_lobby'),
 		);
 	}
 
@@ -88,12 +88,22 @@ class CpGameInfo extends CActiveRecord
 		);
 	}
 
-	
-	/*
-	 * defined lobby id->name
+	/**
+	 * find cp games
+	 * 
 	 * 
 	 * 
 	 */
+	public function getCpGameList($cpid){
+		$cpGameList = CpGameInfo::model()->findAllByAttributes(array('cp_id'=>$cpid));
+//         print_r($cpGameList);
+//         print  gettype($cpGameList);
+       // foreach ($cpGameList as )
+        //
+        return $cpGameList;
+	}
+	
+	
 	
 	
 	
@@ -123,5 +133,15 @@ class CpGameInfo extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	protected function beforeSave(){
+		if (parent::beforeSave()){
+// 			print_r($this->game_lobby);
+			$this->game_lobby = implode(',',$this->game_lobby);
+			return true;
+		}else {
+			return false;
+		}		
 	}
 }

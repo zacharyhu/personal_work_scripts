@@ -19,21 +19,39 @@ $this->menu=array(
 <h1>查看游戏详情 #<?php echo $model->game_name; ?></h1>
 
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php 
+
+/**
+ * 轮训获取lobbyname
+ * 
+ */
+
+$lobbyname = '|';
+foreach (explode(',',$model->game_lobby) as $lobbyid){
+	$lobbyname .= GpLobbyCfg::model()->getLobbyName($lobbyid).' |';
+}
+
+
+    $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		//'id',
 		//'cp_id',
-        array('label'=>'厂商','type'=>'raw','value'=>CHtml::link(CHtml::encode($model->cpName->cp_name),array('cpContactInfo/update','id'=>$model->cp_id))),
+        array('label'=>'厂商','type'=>'raw','value'=>CHtml::link(CHtml::encode($model->cpName->cp_name),array('cpBaseInfo/View','id'=>$model->cp_id))),
 		'game_name',
 		'game_id',
 		'game_cp_code',
 		'game_action_id',
 		'game_desc',
 		array('label'=>'状态','value'=>GpGameStatusCfg::model()->getStatusName($model->game_status)),
-  		array('label'=>'大厅名称','value'=>GpLobbyCfg::model()->getLobbyName($model->game_lobby)),
+  		array('label'=>'大厅名称','value'=>$lobbyname),
 		'game_server_ip',
 		'game_server_port',
 	),
-)); ?>
+)); 
+
+
+// print $lobbyname;
+
+?>
 

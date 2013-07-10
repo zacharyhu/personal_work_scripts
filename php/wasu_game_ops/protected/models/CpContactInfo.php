@@ -11,6 +11,8 @@
  * @property string $contact_email
  * @property string $update_time
  * @property integer $contact_type
+ * @property integer $contact_qq
+ * @property string $contact_othes
  */
 class CpContactInfo extends CActiveRecord
 {
@@ -40,13 +42,14 @@ class CpContactInfo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cp_id, contact_name, contact_phone, contact_email, contact_type', 'required'),
+			array('cp_id, contact_name, contact_type', 'required'),
 			array('cp_id, contact_type', 'numerical', 'integerOnly'=>true),
 			array('cp_id,contact_name, contact_phone', 'length', 'max'=>20),
 			array('contact_email', 'length', 'max'=>50),
+			array('cp_id, contact_name, contact_phone, contact_email, update_time, contact_type, contact_qq, contact_others', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, cp_id, contact_name, contact_phone, contact_email, update_time, contact_type', 'safe', 'on'=>'search'),
+			array('id, cp_id, contact_name, contact_phone, contact_email, update_time, contact_type, contact_qq, contact_others', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +80,8 @@ class CpContactInfo extends CActiveRecord
 			'contact_email' => '邮箱',
 			'update_time' => '更新时间',
 			'contact_type' => '联系人类别',
+			'contact_qq'=> 'QQ',
+			'contact_others'=>'其他联系方式',
 		);
 	}
 
@@ -119,11 +124,18 @@ class CpContactInfo extends CActiveRecord
 		$criteria->compare('contact_name',$this->contact_name,true);
 		$criteria->compare('contact_phone',$this->contact_phone,true);
 		$criteria->compare('contact_email',$this->contact_email,true);
+		$criteria->compare('contact_qq',$this->contact_qq,true);
+		$criteria->compare('contact_others',$this->contact_others,true);
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('contact_type',$this->contact_type);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function getContactList($cpid){
+		$ContactList = CpContactInfo::model()->findAllByAttributes(array('cp_id'=>$cpid));
+		return $ContactList;
 	}
 }

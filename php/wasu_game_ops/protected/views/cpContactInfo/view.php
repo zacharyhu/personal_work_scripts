@@ -27,6 +27,8 @@ $this->menu=array(
 		'contact_name',
 		'contact_phone',
 		 array('label'=>'邮箱','type'=>'raw','value'=>CHtml::mailto($model->contact_email)),
+        'contact_qq',
+        'contact_others',
 		'update_time',
         array('label'=>'联系人类别','value'=>CpContactInfo::model()->getContactType($model->contact_type)),
         array('label'=>'操作 ','type'=>'raw','value'=>CHtml::link(CHtml::encode('更新联系人信息'),array('cpContactInfo/update','id'=>$model->id))),

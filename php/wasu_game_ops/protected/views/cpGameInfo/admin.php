@@ -3,13 +3,13 @@
 /* @var $model CpGameInfo */
 
 $this->breadcrumbs=array(
-	'Cp Game Infos'=>array('index'),
-	'Manage',
+	'CP游戏列表'=>array('index'),
+	'管理',
 );
 
 $this->menu=array(
-	array('label'=>'List CpGameInfo', 'url'=>array('index')),
-	array('label'=>'Create CpGameInfo', 'url'=>array('create')),
+	array('label'=>'列表游戏信息', 'url'=>array('index')),
+	array('label'=>'新建游戏信息', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -47,7 +47,7 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		//'id',
 		//'cp_id',
-        array('name'=>'cp_id','type'=>'raw','value'=>'CHtml::link(CHtml::encode($data->cpName->cp_name),array("CpBaseInfo/view","id"=>$data->cp_id))'),
+        array('name'=>'cp_id','type'=>'raw','value'=>'CHtml::link(CHtml::encode($data->cpName->cp_name),array("CpBaseInfo/view","id"=>$data->cp_id))','filter'=>CpBaseInfo::model()->getCpNameList()),
 		array('name'=>'game_name','type'=>'raw','value'=>'CHtml::link(CHtml::encode($data->game_name),array("CpGameInfo/view","id"=>$data->id))'),
 		//'game_id',
 		//'game_cp_code',
@@ -55,7 +55,7 @@ $('.search-form form').submit(function(){
 // 		'//game_desc',
 // 		'game_status',
         array('name'=>'game_status','value'=>'GpGameStatusCfg::model()->getStatusName($data->game_status)','filter'=>GpGameStatusCfg::model()->getStatusList()),
-		array('name'=>'game_lobby','value'=>'GpLobbyCfg::model()->getLobbyName($data->game_lobby)','filter'=>GpLobbyCfg::model()->getLobbyList()),
+//  		array('name'=>'game_lobby','value'=>'GpLobbyCfg::model()->getLobbyName($data->game_lobby)','filter'=>GpLobbyCfg::model()->getLobbyList()),
 		//'game_server_ip',
 		//'game_server_port',
 		array(

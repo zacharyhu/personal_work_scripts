@@ -53,13 +53,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'game_status'); ?>
-		<?php echo $form->textField($model,'game_status'); ?>
+		<?php echo $form->dropDownList($model, 'game_status', GpGameStatusCfg::model()->getStatusList()); ?>
 		<?php echo $form->error($model,'game_status'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'game_lobby'); ?>
-		<?php echo $form->dropDownList($model, 'game_lobby', GpLobbyCfg::model()->getLobbyList()); ?>
+		<?php echo $form->checkBoxList($model, 'game_lobby', GpLobbyCfg::model()->getLobbyList(),array('separator'=>'&nbsp;')); ?>
 		<?php echo $form->error($model,'game_lobby'); ?>
 	</div>
 

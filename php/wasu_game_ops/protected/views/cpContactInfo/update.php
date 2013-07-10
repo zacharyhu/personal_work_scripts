@@ -3,9 +3,9 @@
 /* @var $model CpContactInfo */
 
 $this->breadcrumbs=array(
-	'Cp Contact Infos'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'联系人信息'=>array('index'),
+	$model->contact_name=>array('view','id'=>$model->id),
+	'更新',
 );
 
 $this->menu=array(

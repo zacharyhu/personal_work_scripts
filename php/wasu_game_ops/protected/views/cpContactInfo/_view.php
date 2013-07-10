@@ -22,14 +22,24 @@
 	<?php echo CHtml::mailto(CHtml::encode($data->contact_email)); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_qq')); ?>:</b>
+	<?php echo CHtml::encode($data->contact_qq); ?>
+	<br />
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_others')); ?>:</b>
+	<?php echo CHtml::encode($data->contact_others); ?>
+	<br />
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</b>
 	<?php echo CHtml::encode($data->update_time); ?>
 	<br />
-
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contact_type')); ?>:</b>
 	<?php echo CHtml::encode(CpContactInfo::model()->getContactType($data->contact_type)); ?>
 	<br />
 
+	
+	
 	<b><?php echo CHtml::encode("可操作"); ?>:</b>
 	<?php echo " | ";echo CHtml::link(CHtml::encode("更新该联系人信息 "), array('update', 'id'=>$data->id)); ?>
 	<br />

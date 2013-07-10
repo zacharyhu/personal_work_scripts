@@ -16,8 +16,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+			'application.extensions.*',
+			'application.modules.srbac.controllers.SBaseController'
 	),
-
+    'language'=>'zh_cn',
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		
@@ -27,7 +29,29 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-		
+			'srbac' => array(
+					'userclass' => 'OpsUser',
+					'userid' => 'id',
+					'username' => 'username',
+					'debug' => false,
+					'delimeter'=>"@",
+					'pageSize' => 10,
+					'superUser' => 'Authority',
+					'css' => 'srbac.css',
+					'layout' => 'application.views.layouts.main',
+					'notAuthorizedView' => 'srbac.views.authitem.unauthorized',
+					//'alwaysAllowed'=>array(),
+// 					'userActions' => array('show', 'View', 'List'),
+					'listBoxNumberOfLines' => 15,
+					'imagesPath' => 'srbac.images',
+					'imagesPack' => 'tango',
+					'iconText' => false,
+					'header' => 'srbac.views.authitem.header',
+					'footer' => 'srbac.views.authitem.footer',
+					'showHeader' => true,
+					'showFooter' => true,
+					'alwaysAllowedPath' => 'srbac.components',
+			),
 	),
 
 	// application components
@@ -79,6 +103,15 @@ return array(
 				
 			),
 		),
+ 		'authManager'=>array(
+                       'class'=>'srbac.components.SDbAuthManager',
+                       'connectionID'=>'db',
+		               'defaultRoles'=>array('guest'),
+                       'itemTable'=>'ops_auth_items',
+                       'assignmentTable'=>'ops_auth_assignment',
+                       'itemChildTable'=>'ops_auth_item_child',
+         ),
+         
 	),
 
 	// application-level parameters that can be accessed

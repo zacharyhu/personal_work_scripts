@@ -46,6 +46,20 @@
 		<?php echo $form->error($model,'contact_type'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'contact_qq'); ?>
+		<?php echo $form->textField($model,'contact_qq'); ?>
+		<?php echo $form->error($model,'contact_qq'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'contact_others'); ?>
+		<?php echo $form->textField($model,'contact_others'); ?>
+		<?php echo $form->error($model,'contact_others'); ?>
+	</div>
+	
+	
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

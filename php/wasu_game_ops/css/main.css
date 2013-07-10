@@ -32,6 +32,14 @@ body
 	padding: 20px 20px 20px 0;
 }
 
+
+#left-bar
+{
+	display:inline;
+	padding: 20px 20px 20px 0;
+}
+
+
 #footer
 {
 	padding: 10px;
@@ -177,7 +185,7 @@ div.search-form
 .portlet-content
 {
 	font-size:0.9em;
-	margin: 0 0 15px 0;
+	margin: 0 10 15px 0;
 	padding: 5px 8px;
 	background:#EFFDFF;
 }

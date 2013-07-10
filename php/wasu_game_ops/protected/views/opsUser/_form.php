@@ -43,11 +43,6 @@
 		<?php echo $form->error($model,'groupid'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'update_date'); ?>
-		<?php echo $form->textField($model,'update_date'); ?>
-		<?php echo $form->error($model,'update_date'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>

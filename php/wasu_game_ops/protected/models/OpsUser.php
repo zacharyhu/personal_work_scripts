@@ -36,7 +36,8 @@ class OpsUser extends CActiveRecord
 			array('login_name', 'length', 'max'=>20),
 			array('username, email', 'length', 'max'=>50),
 			array('password', 'length', 'max'=>100),
-			array('update_date', 'safe'),
+// 			array('update_date', 'safe'),
+			array('login_name, username, password, groupid,update_date, email, phone', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, login_name, username, password, groupid, update_date, email, phone', 'safe', 'on'=>'search'),
@@ -138,8 +139,12 @@ class OpsUser extends CActiveRecord
 	*/
 	
 	protected function beforeSave(){
-		if (parent::beforSave()){//保存之前
+		
+		$this->update_date = new CDbException('Now()');
+		if (parent::beforeSave()){//保存之前
 			if($this->isNewRecord){
+				$this->password=$this->encrypt($this->password);
+			}else {
 				$this->password=$this->encrypt($this->password);
 			}
 			return true;
