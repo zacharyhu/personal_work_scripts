@@ -3,12 +3,13 @@
 class GpDcDailyTurnoverController extends Controller
 {
 	/**
-	 * @var CActiveRecord 当前载入的model实例
+	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
+	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	private $_model;
+	public $layout='//layouts/column2';
 
 	/**
-	 * @return array action 过滤器
+	 * @return array action filters
 	 */
 	public function filters()
 	{
@@ -18,59 +19,58 @@ class GpDcDailyTurnoverController extends Controller
 	}
 
 	/**
-	 * 制定访问控制规则
-	 * 使用这个方法的是'accessControl'过滤器.
-	 * @return array 访问控制规则
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
 	 */
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // 用户所有用户执行的操作
+			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
-			array('allow', // 允许所有认证的用户执行的操作
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
-			array('allow', // 允许admin这个用户执行的操作
-				'actions'=>array('admin','delete'),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete','viewlist'),
 				'users'=>array('admin'),
 			),
-			array('deny',  // 其他操作拒绝所有用户访问
+			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
 
 	/**
-	 * 显示model单个记录
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView()
+	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel(),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
 	/**
-	 * 创建新model记录， 如果创建成功默认重定向到view页
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
 		$model=new GpDcDailyTurnover;
 
-		// 如果需要AJAX验证请取消下面这一行的注释
+		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['GpDcDailyTurnover']))
 		{
 			$model->attributes=$_POST['GpDcDailyTurnover'];
 			if($model->save())
-				$this->dwzOk('文章保存成功！',200,'mArticle');
-//				$this->redirect(array('view','id'=>$model->id));
-			else
-				$this->dwzError($model);
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -79,24 +79,22 @@ class GpDcDailyTurnoverController extends Controller
 	}
 
 	/**
-	 * 更新指定的model记录.
+	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate()
+	public function actionUpdate($id)
 	{
-		$model=$this->loadModel();
+		$model=$this->loadModel($id);
 
-		// 如果需要AJAX验证请取消下面这一行的注释
+		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['GpDcDailyTurnover']))
 		{
 			$model->attributes=$_POST['GpDcDailyTurnover'];
 			if($model->save())
-				$this->dwzOk('更新完成！',200,'mArticle');//要自动刷新就把后面的mArticle改成你的navTablId(就是打开navTab的链接中的rel)不用刷新可直接调用$this->dwz();即可
-//				$this->redirect(array('view','id'=>$model->id));
-			else
-				$this->dwzError($model);
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -105,26 +103,27 @@ class GpDcDailyTurnoverController extends Controller
 	}
 
 	/**
-	 * 删除指定的model记录，如果删除成功则默认重定向到index页
-
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete()
+	public function actionDelete($id)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
-			// 删除操作只允许POST请求操作
-			$this->loadModel()->delete();
+			// we only allow deletion via POST request
+			$this->loadModel($id)->delete();
 
-			// 这里如果是AJAX请求（例如管理员通过grid view请求的删除操作），就不要重定向。
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 		else
-			throw new CHttpException(400,'错误的请求，请不要重复这一请求');
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
-	 * 列出model所有记录
+	 * Lists all models.
 	 */
 	public function actionIndex()
 	{
@@ -135,12 +134,12 @@ class GpDcDailyTurnoverController extends Controller
 	}
 
 	/**
-	 * 管理所有model记录
+	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
 		$model=new GpDcDailyTurnover('search');
-		$model->unsetAttributes();  // 清除默认值
+		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['GpDcDailyTurnover']))
 			$model->attributes=$_GET['GpDcDailyTurnover'];
 
@@ -148,25 +147,39 @@ class GpDcDailyTurnoverController extends Controller
 			'model'=>$model,
 		));
 	}
-
+	
 	/**
-	 * 根据GET变量返回Articles表的主键记录,如果没有找到则抛出错误
+	 * 创建报表列表
+	 * 
 	 */
-	public function loadModel()
+	public function actionViewlist()
 	{
-		if($this->_model===null)
-		{
-			if(isset($_GET['id']))
-				$this->_model=GpDcDailyTurnover::model()->findbyPk($_GET['id']);
-			if($this->_model===null)
-				throw new CHttpException(404,'请求的页面不存在');
-		}
-		return $this->_model;
+		$model=new GpDcDailyTurnover('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['GpDcDailyTurnover']))
+			$model->attributes=$_GET['GpDcDailyTurnover'];
+	
+		$this->render('viewlist',array(
+				'model'=>$model,
+		));
 	}
 
 	/**
-	 * 执行AJAX验证
-	 * @param CModel 被验证的model
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadModel($id)
+	{
+		$model=GpDcDailyTurnover::model()->findByPk((int)$id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param CModel the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
@@ -176,61 +189,4 @@ class GpDcDailyTurnoverController extends Controller
 			Yii::app()->end();
 		}
 	}
-	
-	/**
-	 * @return 这个是给dwz界面用的用于返回相应的消息代码
-	 */
-	protected function dwzOk($message,$statusCode='200',$navTabid='',$forwardUrl='',$callbackType='closeCurrent',$appEnd=true){
-		echo "
-		<script type='text/javascript'>
-			var statusCode='$statusCode';
-			var message='$message';
-			var navTabId='$navTabid';
-			var forwardUrl='$forwardUrl';
-			var callbackType='$callbackType';
-
-			var response = {statusCode:statusCode,
-				message:message,
-				navTabId:navTabId,
-				forwardUrl:forwardUrl,
-				callbackType:callbackType
-			};
-			if(window.parent.donecallback) window.parent.donecallback(response);
-		</script>
-		";
-		if ($appEnd)
-			Yii::app()->end();
-	}
-	
-	/**
-	 * @return 这个是给dwz界面用的用于返回相应的消息代码
-	 */
-	protected function dwzError($message,$statusCode='300',$navTabid='',$forwardUrl='',$callbackType='closeCurrent',$appEnd=true){
-		if ($message instanceof CModel){
-			if ($message->hasErrors()){
-				$message=preg_replace("/[\n\r]/",'',CHtml::errorSummary($message));
-			}else
-				$message='';
-		}
-		echo "
-		<script type='text/javascript'>
-			var statusCode='$statusCode';
-			var message='$message';
-			var navTabId='$navTabid';
-			var forwardUrl='$forwardUrl';
-			var callbackType='$callbackType';
-
-			var response = {statusCode:statusCode,
-				message:message,
-				navTabId:navTabId,
-				forwardUrl:forwardUrl,
-				callbackType:callbackType
-			};
-			if(window.parent.donecallback) window.parent.donecallback(response);
-		</script>
-		";
-		if ($appEnd)
-			Yii::app()->end();
-	}
-
 }

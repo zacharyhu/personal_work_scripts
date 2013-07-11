@@ -1,7 +1,7 @@
 <?php
-/* @var $this TvGpCfgGameLobbyInfoController */
-/* @var $dataProvider CActiveDataProvider */
-
+$this->pageCaption='Tv Gp Cfg Game Lobby Infos';
+$this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
+$this->pageDescription='List of all tv gp cfg game lobby infos';
 $this->breadcrumbs=array(
 	'Tv Gp Cfg Game Lobby Infos',
 );
@@ -11,8 +11,6 @@ $this->menu=array(
 	array('label'=>'Manage TvGpCfgGameLobbyInfo', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Tv Gp Cfg Game Lobby Infos</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -1,14 +1,14 @@
 <?php
-/* @var $this TvGpCfgActionController */
-/* @var $model TvGpCfgAction */
-
+$this->pageCaption='Manage Tv Gp Cfg Actions';
+$this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
+$this->pageDescription='Administer all tv gp cfg actions';
 $this->breadcrumbs=array(
 	'Tv Gp Cfg Actions'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List TvGpCfgAction', 'url'=>array('index')),
+	array('label'=>'List Tv Gp Cfg Actions', 'url'=>array('index')),
 	array('label'=>'Create TvGpCfgAction', 'url'=>array('create')),
 );
 
@@ -18,15 +18,13 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#tv-gp-cfg-action-grid').yiiGridView('update', {
+	$.fn.yiiGridView.update('tv-gp-cfg-action-grid', {
 		data: $(this).serialize()
 	});
 	return false;
 });
 ");
 ?>
-
-<h1>Manage Tv Gp Cfg Actions</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -44,6 +42,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'id'=>'tv-gp-cfg-action-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'cssFile'=>Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.bootstrap-theme.widgets.assets')).'/gridview/styles.css',
+	'itemsCssClass'=>'zebra-striped',
 	'columns'=>array(
 		'l_action_id',
 		'l_father_id',

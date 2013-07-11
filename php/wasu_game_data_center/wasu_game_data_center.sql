@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2013 年 07 月 05 日 16:12
+-- 生成日期: 2013 年 07 月 11 日 18:08
 -- 服务器版本: 5.5.27
 -- PHP 版本: 5.4.7
 
@@ -19,6 +19,24 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `wasu_game_data_center`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `gp_dc_daily_game_active`
+--
+
+CREATE TABLE IF NOT EXISTS `gp_dc_daily_game_active` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键，编号',
+  `l_date` int(11) NOT NULL,
+  `lobby_id` int(11) NOT NULL,
+  `cp_code` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `user_num` int(11) NOT NULL COMMENT '点击人数',
+  `user_time` int(11) NOT NULL COMMENT '点击人次',
+  PRIMARY KEY (`id`),
+  KEY `l_date` (`l_date`,`lobby_id`,`cp_code`,`game_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='游戏每日点击汇总' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3708,6 +3726,50 @@ INSERT INTO `gp_dc_daily_turnover` (`id`, `date`, `lobby_id`, `cp_code`, `action
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `gp_dc_daily_user_report`
+--
+
+CREATE TABLE IF NOT EXISTS `gp_dc_daily_user_report` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键，id',
+  `l_date` date NOT NULL COMMENT '日期',
+  `lobby_id` int(11) NOT NULL COMMENT '大厅编号',
+  `user_login_num` int(11) NOT NULL COMMENT '进入用户数',
+  `user_login_time` int(11) NOT NULL COMMENT '点击登录次数',
+  `user_register` int(11) NOT NULL COMMENT '累计用户数',
+  `user_new` int(11) NOT NULL COMMENT '新注册人数',
+  PRIMARY KEY (`id`),
+  KEY `l_date` (`l_date`),
+  KEY `lobby_id` (`lobby_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='大厅用户行为统计数据' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `gp_dc_daily_user_report`
+--
+
+INSERT INTO `gp_dc_daily_user_report` (`id`, `l_date`, `lobby_id`, `user_login_num`, `user_login_time`, `user_register`, `user_new`) VALUES
+(1, '2013-06-17', 104, 50, 400, 200000000, 333);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `gp_dc_monthly_game_active`
+--
+
+CREATE TABLE IF NOT EXISTS `gp_dc_monthly_game_active` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键，编号',
+  `l_month` int(11) NOT NULL,
+  `lobby_id` int(11) NOT NULL,
+  `cp_code` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `user_num` int(11) NOT NULL COMMENT '点击人数',
+  `user_time` int(11) NOT NULL COMMENT '点击人次',
+  PRIMARY KEY (`id`),
+  KEY `l_date` (`l_month`,`lobby_id`,`cp_code`,`game_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='游戏每日点击汇总' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `gp_dc_monthly_turnover`
 --
 
@@ -3728,42 +3790,26 @@ CREATE TABLE IF NOT EXISTS `gp_dc_monthly_turnover` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `gp_dc_quarter_turnover`
+-- 表的结构 `gp_dc_monthly_user_report`
 --
 
-CREATE TABLE IF NOT EXISTS `gp_dc_quarter_turnover` (
+CREATE TABLE IF NOT EXISTS `gp_dc_monthly_user_report` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-  `quarter` date NOT NULL COMMENT '日期',
-  `lobby_id` int(10) NOT NULL COMMENT '大厅',
-  `cp_code` int(10) NOT NULL COMMENT 'cp',
-  `action_id` int(10) NOT NULL COMMENT 'action',
-  `sum` int(10) NOT NULL COMMENT '总金额',
-  `user_no` int(10) NOT NULL COMMENT '用户数',
-  `user_time` int(10) NOT NULL COMMENT '人次',
-  `arpu` varchar(10) NOT NULL COMMENT '人均充值',
+  `l_month` date NOT NULL COMMENT '日期',
+  `lobby_id` int(11) NOT NULL COMMENT '大厅编号',
+  `user_login_num` int(11) NOT NULL COMMENT '进入用户数',
+  `user_login_time` int(11) NOT NULL COMMENT '点击登录次数',
+  `user_register` int(11) NOT NULL COMMENT '累计用户数',
+  `user_new` int(11) NOT NULL COMMENT '新注册人数',
+  `beyond_5` int(11) NOT NULL COMMENT '超过5天活跃',
+  `beyond_10` int(11) NOT NULL COMMENT '超过10天活跃',
+  `beyond_15` int(11) NOT NULL COMMENT '超过15天活跃',
+  `beyond_20` int(11) NOT NULL COMMENT '超过20天活跃',
+  `beyond_25` int(11) NOT NULL COMMENT '超过25天活跃',
   PRIMARY KEY (`id`),
-  KEY `date` (`quarter`,`lobby_id`,`cp_code`,`action_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='每日充值数据' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `gp_dc_year_turnover`
---
-
-CREATE TABLE IF NOT EXISTS `gp_dc_year_turnover` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-  `year` date NOT NULL COMMENT '日期',
-  `lobby_id` int(10) NOT NULL COMMENT '大厅',
-  `cp_code` int(10) NOT NULL COMMENT 'cp',
-  `action_id` int(10) NOT NULL COMMENT 'action',
-  `sum` int(10) NOT NULL COMMENT '总金额',
-  `user_no` int(10) NOT NULL COMMENT '用户数',
-  `user_time` int(10) NOT NULL COMMENT '人次',
-  `arpu` varchar(10) NOT NULL COMMENT '人均充值',
-  PRIMARY KEY (`id`),
-  KEY `date` (`year`,`lobby_id`,`cp_code`,`action_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='每日充值数据' AUTO_INCREMENT=1 ;
+  KEY `l_date` (`l_month`),
+  KEY `lobby_id` (`lobby_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='大厅用户行为统计数据' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

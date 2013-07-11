@@ -2,20 +2,25 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',		
+	'name'=>'云游乐运营数据展现平台',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
-
+	'preload'=>array('log','bootstrap'),
+//使用bootstrap 主题
+	'theme'=>'bootstrap',
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+			//导入扩展
+		'ext.bootstrap-theme.widgets.*',
+		'ext.bootstrap-theme.helpers.*',
+		'ext.bootstrap-theme.behaviors.*',
 	),
 
 // 	'modules'=>array(
@@ -33,6 +38,10 @@ return array(
 	'modules'=>array(
 	     	'admin',
 	 		'gii'=>array(
+	 				'generatorPaths'=>array(  //添加一个gii检索的路径
+// 	 						'ext.bootstrap-theme.gii',
+	                         'bootstrap.gii',
+	 				),
 			'class'=>'system.gii.giiModule',
 			'password'=>'admin',
 			'ipFilters'=>array('127.0.0.1','::1'),
@@ -43,6 +52,10 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+		),
+		'bootstrap'=>array(
+// 				'class'=>'ext.bootstrap.components.Bootstrap',
+		        'class'=>'bootstrap.components.Bootstrap',
 		),
 		// uncomment the following to enable URLs in path-format
 		/*

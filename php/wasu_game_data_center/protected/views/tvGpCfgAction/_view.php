@@ -1,8 +1,3 @@
-<?php
-/* @var $this TvGpCfgActionController */
-/* @var $data TvGpCfgAction */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('l_action_id')); ?>:</b>

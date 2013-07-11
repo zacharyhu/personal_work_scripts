@@ -1,8 +1,3 @@
-<?php
-/* @var $this TvGpCfgGameLobbyInfoController */
-/* @var $data TvGpCfgGameLobbyInfo */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('l_lobby_id')); ?>:</b>

@@ -1,7 +1,7 @@
 <?php
-/* @var $this TvGpCfgActionController */
-/* @var $dataProvider CActiveDataProvider */
-
+$this->pageCaption='Tv Gp Cfg Actions';
+$this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
+$this->pageDescription='List of all tv gp cfg actions';
 $this->breadcrumbs=array(
 	'Tv Gp Cfg Actions',
 );
@@ -11,8 +11,6 @@ $this->menu=array(
 	array('label'=>'Manage TvGpCfgAction', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Tv Gp Cfg Actions</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
