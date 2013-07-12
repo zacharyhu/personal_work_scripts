@@ -86,6 +86,22 @@ class TvGpCfgGameLobbyInfo extends CActiveRecord
 	}
 
 	/**
+	 * 创建获取大厅列表方法
+	 */
+	
+	public function getLobbyList()
+	{
+		$lobbylist = TvGpCfgGameLobbyInfo::model()->findAll();
+		return CHtml::listData($lobbylist, 'l_lobby_id', 'vc_org_name');
+	}
+	
+	public function getLobbyName($lobbyid)
+	{
+		$lobbydata = TvGpCfgGameLobbyInfo::model()->findByAttributes(array('l_lobby_id'=>$lobbyid));
+		return $lobbydata->vc_org_name;
+	}
+	
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

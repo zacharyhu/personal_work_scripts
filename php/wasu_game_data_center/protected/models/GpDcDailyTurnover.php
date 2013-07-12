@@ -16,6 +16,8 @@
  */
 class GpDcDailyTurnover extends CActiveRecord
 {
+	public $begin_date='1970-01-01';
+	public $end_date='3000-01-01';
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -44,7 +46,7 @@ class GpDcDailyTurnover extends CActiveRecord
 		return array(
 			array('date, lobby_id, cp_code, action_id, sum, user_no, user_time, arpu', 'required'),
 			array('lobby_id, cp_code, action_id, sum, user_no, user_time', 'numerical', 'integerOnly'=>true),
-			array('arpu', 'length', 'max'=>10),
+			array('arpu', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, date, lobby_id, cp_code, action_id, sum, user_no, user_time, arpu', 'safe', 'on'=>'search'),
@@ -69,14 +71,14 @@ class GpDcDailyTurnover extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'date' => 'Date',
-			'lobby_id' => 'Lobby',
-			'cp_code' => 'Cp Code',
-			'action_id' => 'Action',
-			'sum' => 'Sum',
-			'user_no' => 'User No',
-			'user_time' => 'User Time',
-			'arpu' => 'Arpu',
+			'date' => '日期',
+			'lobby_id' => '大厅/区域',
+			'cp_code' => 'Cp名称',
+			'action_id' => '行为编号',
+			'sum' => '总计',
+			'user_no' => '充值人数',
+			'user_time' => '充值人次',
+			'arpu' => 'ARPU值',
 		);
 	}
 
@@ -100,9 +102,13 @@ class GpDcDailyTurnover extends CActiveRecord
 		$criteria->compare('user_no',$this->user_no);
 		$criteria->compare('user_time',$this->user_time);
 		$criteria->compare('arpu',$this->arpu,true);
+		$criteria->addBetweenCondition('date',$this->begin_date,$this->end_date);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+				'pagination'=>array(
+						'pageSize'=>31,
+				),
 		));
 	}
 }

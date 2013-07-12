@@ -67,6 +67,25 @@ class TvGpCfgCpInfo extends CActiveRecord
 	}
 
 	/**
+	 * 获取CP列表
+	 * 
+	 */
+	public function getCpList(){
+		$cplist = TvGpCfgCpInfo::model()->findAll();
+		return CHtml::listData($cplist, 'l_cp_code', 'vc_cp_name');
+	}
+	
+	/**
+	 * 查找CP名称
+	 */
+	public function getCpName($cpcode)
+	{
+		$cpdata = TvGpCfgCpInfo::model()->findByAttributes(array('l_cp_code'=>$cpcode));
+		return $cpdata->vc_cp_name;
+		
+	}
+	
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

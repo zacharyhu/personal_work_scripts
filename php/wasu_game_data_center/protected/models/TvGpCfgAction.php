@@ -74,6 +74,31 @@ class TvGpCfgAction extends CActiveRecord
 	}
 
 	/**
+	 * 创建筛选ACTION名称的方法
+	 * 
+	 * 
+	 */
+	
+	public function getActionList(){
+		$all_data_list = TvGpCfgAction::model()->findAll();
+		return CHtml::listData($all_data_list, 'l_action_id', 'vc_business_name');
+	}
+	
+	/**
+	 * 创建查找ACTION的方法
+	 */
+	
+	public function getActionName($actionid){
+		$data_action = TvGpCfgAction::model()->findByAttributes(array('l_action_id'=>$actionid));
+// 		print_r($actionid);
+// 		echo "==================================================================";
+// 		print_r($data_action);
+// 		exit;
+		return $data_action->vc_business_name;
+	}
+	
+	
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

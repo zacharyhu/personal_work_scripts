@@ -3,14 +3,14 @@ $this->pageCaption='每日收入汇总数据';
 $this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
 $this->pageDescription='查询每天汇总的收入，可按照cp、大厅、游戏进行筛选，根据各列值进行排序';
 $this->breadcrumbs=array(
-	'Gp Dc Daily Turnovers'=>array('index'),
-	'Manage',
+	'每日收入数据'=>array('index'),
+	'展示',
 );
 
-$this->menu=array(
-	array('label'=>'List Gp Dc Daily Turnovers', 'url'=>array('index')),
-	array('label'=>'Create GpDcDailyTurnover', 'url'=>array('create')),
-);
+// $this->menu=array(
+// 	array('label'=>'List Gp Dc Daily Turnovers', 'url'=>array('index')),
+// 	array('label'=>'Create GpDcDailyTurnover', 'url'=>array('create')),
+// );
 
 
 Yii::app()->clientScript->registerScript('search', "
@@ -39,20 +39,23 @@ $('.search-form form').submit(function(){
  <?php 
 $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
-		'cssFile'=>Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.bootstrap-theme.widgets.assets')).'/gridview/styles.css',
+    'id'=>'gp-dc-daily-turnover-grid',
+	'cssFile'=>Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.bootstrap-theme.widgets.assets')).'/gridview/styles.css',
 	'filter'=>$model,
     'dataProvider'=>$model->search(),
 		'itemsCssClass'=>'zebra-striped',
 //     'template'=>"{items}",
     'columns'=>array(
-       		'date',
-		'lobby_id',
-		'cp_code',
-		'action_id',
-		'sum',
-		'user_no',
-		'user_time',
-		'arpu',
+       	array('name'=>'date','htmlOptions'=>array('width'=>'13%',),),
+		array('name'=>'lobby_id','value'=>'TvGpCfgGameLobbyInfo::model()->getLobbyName($data->lobby_id)','filter'=>TvGpCfgGameLobbyInfo::model()->getLobbyList(),'htmlOptions'=>array('width'=>'15%',),),
+		array('name'=>'cp_code','value'=>'TvGpCfgCpInfo::model()->getCpName($data->cp_code)','filter'=>TvGpCfgCpInfo::model()->getCpList(),'htmlOptions'=>array('width'=>'15%',),),
+// 		'action_id',
+//         array('name'=>'action_id','value'=>'TvGpCfgAction::model()->getActionName($data->action_id)','filter'=>TvGpCfgAction::model()->getActionList()),
+        array('name'=>'action_id','value'=>'TvGpCfgAction::model()->getActionName($data->action_id)','filter'=>TvGpCfgAction::model()->getActionList()),
+		array('name'=>'sum','htmlOptions'=>array('width'=>'8%',),),
+		array('name'=>'user_no','htmlOptions'=>array('width'=>'10%',),),
+		array('name'=>'user_time','htmlOptions'=>array('width'=>'10%',),),
+		array('name'=>'arpu','htmlOptions'=>array('width'=>'6%',),),
 //         array(
 //             'class'=>'bootstrap.widgets.TbButtonColumn',
 //             'htmlOptions'=>array('style'=>'width: 50px'),
