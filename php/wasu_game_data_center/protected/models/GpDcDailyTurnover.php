@@ -10,14 +10,15 @@
  * @property integer $cp_code
  * @property integer $action_id
  * @property integer $sum
+ * @property string $begin_date
+ * @property string $end_date
  * @property integer $user_no
  * @property integer $user_time
  * @property string $arpu
  */
 class GpDcDailyTurnover extends CActiveRecord
 {
-	public $begin_date='1970-01-01';
-	public $end_date='3000-01-01';
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -79,9 +80,22 @@ class GpDcDailyTurnover extends CActiveRecord
 			'user_no' => '充值人数',
 			'user_time' => '充值人次',
 			'arpu' => 'ARPU值',
+				'begin_date'=>'起始日期',
+				'end_date'=>'结束日期',
 		);
 	}
 
+	/**
+	 * Model behaviors
+	 */
+	public function behaviors()
+	{
+		return array(
+				'dateRangeSearch'=>array(
+						'class'=>'application.components.behaviors.EDateRangeSearchBehavior',
+				),
+		);
+	}
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -94,7 +108,7 @@ class GpDcDailyTurnover extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('date',$this->date,true);
+// 		$criteria->compare('date',$this->date,true);	
 		$criteria->compare('lobby_id',$this->lobby_id);
 		$criteria->compare('cp_code',$this->cp_code);
 		$criteria->compare('action_id',$this->action_id);
@@ -102,13 +116,19 @@ class GpDcDailyTurnover extends CActiveRecord
 		$criteria->compare('user_no',$this->user_no);
 		$criteria->compare('user_time',$this->user_time);
 		$criteria->compare('arpu',$this->arpu,true);
-		$criteria->addBetweenCondition('date',$this->begin_date,$this->end_date);
-
+// 		$criteria->addBetweenCondition('date',$this->begin_date,$this->end_date);
+//         echo gettype($this->dateRangeSearchCriteria('date',$this->date));
+//         print_r("no no no ");
+//         exit;
+		$criteria->mergeWith($this->dateRangeSearchCriteria('date',$this->date));
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 				'pagination'=>array(
 						'pageSize'=>31,
 				),
+				'sort'=>array(
+						'defaultOrder'=>'date desc'
+						)
 		));
 	}
 }

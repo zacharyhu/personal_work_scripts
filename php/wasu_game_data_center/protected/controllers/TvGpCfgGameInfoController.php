@@ -1,6 +1,6 @@
 <?php
 
-class GpDcDailyTurnoverController extends Controller
+class TvGpCfgGameInfoController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -15,6 +15,7 @@ class GpDcDailyTurnoverController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -35,7 +36,7 @@ class GpDcDailyTurnoverController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','viewlist'),
+				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -54,7 +55,6 @@ class GpDcDailyTurnoverController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
-	
 
 	/**
 	 * Creates a new model.
@@ -62,16 +62,16 @@ class GpDcDailyTurnoverController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new GpDcDailyTurnover;
+		$model=new TvGpCfgGameInfo;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GpDcDailyTurnover']))
+		if(isset($_POST['TvGpCfgGameInfo']))
 		{
-			$model->attributes=$_POST['GpDcDailyTurnover'];
+			$model->attributes=$_POST['TvGpCfgGameInfo'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->l_game_id));
 		}
 
 		$this->render('create',array(
@@ -91,11 +91,11 @@ class GpDcDailyTurnoverController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GpDcDailyTurnover']))
+		if(isset($_POST['TvGpCfgGameInfo']))
 		{
-			$model->attributes=$_POST['GpDcDailyTurnover'];
+			$model->attributes=$_POST['TvGpCfgGameInfo'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->l_game_id));
 		}
 
 		$this->render('update',array(
@@ -110,17 +110,11 @@ class GpDcDailyTurnoverController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+		$this->loadModel($id)->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -128,7 +122,7 @@ class GpDcDailyTurnoverController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('GpDcDailyTurnover');
+		$dataProvider=new CActiveDataProvider('TvGpCfgGameInfo');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -139,40 +133,26 @@ class GpDcDailyTurnoverController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new GpDcDailyTurnover('search');
+		$model=new TvGpCfgGameInfo('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GpDcDailyTurnover']))
-			$model->attributes=$_GET['GpDcDailyTurnover'];
+		if(isset($_GET['TvGpCfgGameInfo']))
+			$model->attributes=$_GET['TvGpCfgGameInfo'];
 
 		$this->render('admin',array(
 			'model'=>$model,
-		));
-	}
-	
-	/**
-	 * 创建报表列表
-	 * 
-	 */
-	public function actionViewlist()
-	{
-		$model=new GpDcDailyTurnover('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GpDcDailyTurnover']))
-			$model->attributes=$_GET['GpDcDailyTurnover'];
-	
-		$this->render('viewlist',array(
-				'model'=>$model,
 		));
 	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
+	 * @param integer $id the ID of the model to be loaded
+	 * @return TvGpCfgGameInfo the loaded model
+	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=GpDcDailyTurnover::model()->findByPk((int)$id);
+		$model=TvGpCfgGameInfo::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -180,11 +160,11 @@ class GpDcDailyTurnoverController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
+	 * @param TvGpCfgGameInfo $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='gp-dc-daily-turnover-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='tv-gp-cfg-game-info-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

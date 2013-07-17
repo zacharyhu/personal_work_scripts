@@ -35,7 +35,7 @@ class GpDcDailyGameActiveController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','viewlist'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -145,6 +145,21 @@ class GpDcDailyGameActiveController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
+		));
+	}
+	
+	/**
+	 * Manages all models.
+	 */
+	public function actionViewlist()
+	{
+		$model=new GpDcDailyGameActive('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['GpDcDailyGameActive']))
+			$model->attributes=$_GET['GpDcDailyGameActive'];
+	
+		$this->render('viewlist',array(
+				'model'=>$model,
 		));
 	}
 
