@@ -1,0 +1,24 @@
+表结构设计：
+--
+-- 表的结构 `gp_sd_user_info`
+--
+
+CREATE TABLE IF NOT EXISTS `gp_sd_user_info` (
+  `customer_id` varchar(20) DEFAULT NULL COMMENT '客户ID',
+  `user_id` varchar(15) DEFAULT NULL COMMENT '用户ID',
+  `user_name` varchar(20) DEFAULT NULL COMMENT '用户名',
+  `address_line` varchar(200) NOT NULL COMMENT '安装地址',
+  `city` varchar(50) NOT NULL COMMENT '运营商',
+  `state_or_province` varchar(50) NOT NULL COMMENT '省份',
+  `country` varchar(20) NOT NULL COMMENT '国家',
+  `email` varchar(40) NOT NULL COMMENT '邮箱',
+  `postal_code` varchar(10) NOT NULL COMMENT '邮编',
+  `primary_phone` varchar(20) NOT NULL COMMENT '电话',
+  `device_type` varchar(20) DEFAULT NULL COMMENT '物理资源类型（智能卡：1）',
+  `equipment_id` varchar(30) DEFAULT NULL COMMENT '物理资源ID（智能卡号）',
+PRIMARY KEY (`user_id`),
+  KEY `customer_id` (`customer_id`),
+  KEY `user_name` (`user_name`),
+  KEY `device_type` (`device_type`),
+  KEY `equipment_id` (`equipment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='山东用户信息表ES接口使用';

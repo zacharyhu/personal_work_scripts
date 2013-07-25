@@ -1,0 +1,23 @@
+[root@localhost lua]# curl --data 'customer_id=1111111&user_id=2222222&user_name=333333name&email=email@email.com&device_type=type1&equipment_id=AABBCCDDEEFFF88888' http://localhost/sd_customer?op=OpenUser
+{"status":"false","description":"用户已经存在","value":{"customer_id":"1111111","equipment_id":"AABBCCDDEEFFF88888","user_id":"2222222","email":"email@email.com","device_type":"type1","user_name":"333333name"}}
+
+# curl --data 'customer_id=1111111&user_id=2222222&user_name=333333name&email=email@email.com&device_type=type1&equipment_id=AABBCCDDEEFFF88888' http://localhost/sd_customer?op=OpenUser
+replace into gp_sd_user_info (customer_id,user_id,user_name,email,device_type,equipment_id,address_line,city,state_or_province,country,postal_code,primary_phone) values('1111111','2222222','333333name','email@email.com','type1','AABBCCDDEEFFF88888',' ',' ',' ',' ',' ',' ')
+{"status":"true","description":"用户数据插入成功","value":{"customer_id":"1111111","equipment_id":"AABBCCDDEEFFF88888","user_id":"2222222","email":"email@email.com","device_type":"type1","user_name":"333333name"}}
+
+curl --data 'customer_id=1111111&user_id=2222222' http://localhost/sd_customer?op=CloseUser
+{"status":"true","description":"用户注销成功","value":{"user_id":"2222222","customer_id":"1111111"}}
+
+# curl --data 'customer_id=1111111&user_id=2222222&user_name=333333name&email=email@email.com&device_type=type2&equipment_id=AABBCCDDEEFFF88737' http://localhost/sd_customer?op=UpdateUser
+{"status":"true","description":"用户数据更新成功","value":{"customer_id":"1111111","equipment_id":"AABBCCDDEEFFF88737","user_id":"2222222","email":"email@email.com","device_type":"type2","user_name":"333333name"}}
+
+
+http://10.255.23.32:8801/Customer.asmx?op=OpenUser
+
+
+[root@localhost ~]# curl --data 'stbId=AABBCCDDEEFFF88737&spCode=202' http://localhost/sd_get_user
+{"user_name":"333333name","city":" ","customer_id":"1111111","device_type":"type2","count_no":"1","email":"email@email.com","primary_phone":" ","user_id":"2222222","country":" ","address_line":" ","returnMessage":"查询成功","equipment_id":"AABBCCDDEEFFF88737","returnCode":"0","state_or_province":" ","postal_code":" "}
+[root@localhost ~]# curl --data 'stbId=AABBCCDDE228737&spCode=202' http://localhost/sd_get_user
+{"returnMessage":"无此机顶盒记录","returnCode":"1"}
+[root@localhost ~]# curl --data 'aaa&spCode=202' http://localhost/sd_get_user
+{"returnMessage":"Post 参数缺少stbId, 必要参数的值","returnCode":"1"}
