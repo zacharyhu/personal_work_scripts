@@ -155,7 +155,7 @@ elseif args_get.op == "UpdateUser" then  --update 操作
        table.insert(t_update,"equipment_id="..ngx.quote_sql_str(args_post.equipment_id))
     end
     if args_post.address_line  then
-       table.insert(t_update,"address_line"..ngx.quote_sql_str(args_post.address_line))
+       table.insert(t_update,"address_line="..ngx.quote_sql_str(args_post.address_line))
     end
     if args_post.city  then
        table.insert(t_update,"city="..ngx.quote_sql_str(args_post.city))
@@ -174,6 +174,7 @@ elseif args_get.op == "UpdateUser" then  --update 操作
     end
     local op_sql = string.format("update gp_sd_user_info set %s where customer_id=%s and user_id=%s",table.concat(t_update,","),ngx.quote_sql_str(args_post.customer_id),ngx.quote_sql_str(args_post.user_id))
     
+    ngx.log(ngx.ERR,op_sql)
     local res, err, errno, sqlstate = db:query(op_sql)
     if not res then
         return_table.status = "false"
@@ -198,6 +199,7 @@ elseif args_get.op == "CloseUser" then
     end
       
     local op_sql = string.format("delete from gp_sd_user_info where user_id=%s",ngx.quote_sql_str(args_post.user_id))
+    ngx.log(ngx.ERR,op_sql)
     local res, err, errno, sqlstate = db:query(op_sql)
     if not res then
         return_table.status = "false"
