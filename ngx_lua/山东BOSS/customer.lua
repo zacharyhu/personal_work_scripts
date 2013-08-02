@@ -3,6 +3,9 @@ ngx.req.read_body()
 local datastr = ngx.req.get_body_data()
 if datastr then
     ngx.log(ngx.ERR,datastr)
+else
+    ngx.log(ngx.ERR,"datastr nil ")
+    return
 end
 local cjson = require 'cjson'
 local char = string.char
@@ -101,6 +104,7 @@ if args_get.op == "OpenUser" then  --open user operation
     local primary_phone = args_post.primary_phone or " "
     local op_sql = string.format("insert into gp_sd_user_info (customer_id,user_id,user_name,email,device_type,equipment_id,address_line,city,state_or_province,country,postal_code,primary_phone) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",ngx.quote_sql_str(args_post.customer_id),ngx.quote_sql_str(args_post.user_id),ngx.quote_sql_str(args_post.user_name),ngx.quote_sql_str(args_post.email),ngx.quote_sql_str(args_post.device_type),ngx.quote_sql_str(args_post.equipment_id),ngx.quote_sql_str(address_line),ngx.quote_sql_str(city),ngx.quote_sql_str(state_or_province),ngx.quote_sql_str(country),ngx.quote_sql_str(postal_code),ngx.quote_sql_str(primary_phone))
     
+    ngx.log(ngx.ERR,op_sql)
     --ngx.say(op_sql)
     --ngx.say("do some insert db op")
     local res, err, errno, sqlstate = db:query(op_sql)
