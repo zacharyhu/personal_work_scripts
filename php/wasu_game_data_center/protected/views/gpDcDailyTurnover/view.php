@@ -22,7 +22,7 @@ $this->menu=array(
 	'cssFile'=>false,
 	'attributes'=>array(
 		'id',
-		'date',
+		'l_date',
 		'lobby_id',
 		'cp_code',
 		'action_id',

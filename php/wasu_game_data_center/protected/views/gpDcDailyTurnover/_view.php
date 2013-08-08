@@ -4,8 +4,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('date')); ?>:</b>
-	<?php echo CHtml::encode($data->date); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('l_date')); ?>:</b>
+	<?php echo CHtml::encode($data->l_date); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('lobby_id')); ?>:</b>

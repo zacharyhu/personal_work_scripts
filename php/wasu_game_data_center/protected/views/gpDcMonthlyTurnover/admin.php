@@ -46,7 +46,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'itemsCssClass'=>'zebra-striped',
 	'columns'=>array(
 		'id',
-		'month',
+		'l_month',
 		'lobby_id',
 		'cp_code',
 		'action_id',

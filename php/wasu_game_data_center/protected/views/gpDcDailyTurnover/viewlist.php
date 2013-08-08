@@ -31,11 +31,11 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
     'id'=>'gp-dc-daily-turnover-grid',
 	'cssFile'=>Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.bootstrap-theme.widgets.assets')).'/gridview/styles.css',
-	'filter'=>$model,
+// 	'filter'=>$model,
     'dataProvider'=>$model->search(),
 	'itemsCssClass'=>'zebra-striped',
     'columns'=>array(
-       	array('name'=>'date','filter'=>false ,'htmlOptions'=>array('width'=>'13%',),),
+       	array('name'=>'l_date','filter'=>false ,'htmlOptions'=>array('width'=>'13%',),),
 //     	array('name'=>'date','class'=>'SYDateColumn','htmlOptions'=>array('width'=>'13%',),),
 		array('name'=>'lobby_id','value'=>'TvGpCfgGameLobbyInfo::model()->getLobbyName($data->lobby_id)','filter'=>false ,'htmlOptions'=>array('width'=>'15%',),),
 		array('name'=>'cp_code','value'=>'TvGpCfgCpInfo::model()->getCpName($data->cp_code)','filter'=>false ,'htmlOptions'=>array('width'=>'15%',),),

@@ -12,11 +12,11 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="<?php echo $form->fieldClass($model, 'date'); ?>">
-		<?php echo $form->labelEx($model,'date'); ?>
+	<div class="<?php echo $form->fieldClass($model, 'l_date'); ?>">
+		<?php echo $form->labelEx($model,'l_date'); ?>
 		<div class="input">
-			<?php echo $form->textField($model,'date'); ?>
-			<?php echo $form->error($model,'date'); ?>
+			<?php echo $form->textField($model,'l_date'); ?>
+			<?php echo $form->error($model,'l_date'); ?>
 		</div>
 	</div>
 

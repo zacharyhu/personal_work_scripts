@@ -14,7 +14,7 @@
 	echo Yii::t('main', 'ACTION: ');
 	echo $form->dropDownList($model,'action_id',TvGpCfgAction::model()->getActionList(),array('empty'=>'-- 全 部 --','style'=>'width:140px;'));
 	echo "<br><br>";
-	$attribute = 'date';
+	$attribute = 'l_date';
 	for ($i = 0; $i <= 1; $i++)
 	{
 		echo ($i == 0 ? Yii::t('main', '起始日期 : ') : Yii::t('main', '终止日期:'));

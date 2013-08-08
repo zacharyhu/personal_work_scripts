@@ -64,12 +64,25 @@ class GpDcDailyUserReport extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'l_date' => 'L Date',
-			'lobby_id' => 'Lobby',
-			'user_login_num' => 'User Login Num',
-			'user_login_time' => 'User Login Time',
-			'user_register' => 'User Register',
-			'user_new' => 'User New',
+			'l_date' => '日期',
+			'lobby_id' => '大厅',
+			'user_login_num' => '登录平台用户数',
+			'user_login_time' => '用户登录人次',
+			'user_register' => '平台总注册用户',
+			'user_new' => '新注册用户',
+				'begin_date'=>'起始日期',
+				'end_date'=>'结束日期',
+		);
+	}
+	/**
+	 * Model behaviors
+	 */
+	public function behaviors()
+	{
+		return array(
+				'dateRangeSearch'=>array(
+						'class'=>'application.components.behaviors.EDateRangeSearchBehavior',
+				),
 		);
 	}
 
@@ -84,15 +97,51 @@ class GpDcDailyUserReport extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('l_date',$this->l_date,true);
+// 		$criteria->compare('l_date',$this->l_date,true);
 		$criteria->compare('lobby_id',$this->lobby_id);
 		$criteria->compare('user_login_num',$this->user_login_num);
 		$criteria->compare('user_login_time',$this->user_login_time);
 		$criteria->compare('user_register',$this->user_register);
 		$criteria->compare('user_new',$this->user_new);
+		$criteria->mergeWith($this->dateRangeSearchCriteria('l_date',$this->l_date));
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+				'pagination'=>array(
+						'pageSize'=>31,
+				),
+				'sort'=>array(
+						'defaultOrder'=>'l_date desc'
+				)
+		));
+	}
+	/**
+	 * render init
+	 * @return CActiveDataProvider
+	 */
+	public function search_once()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		// 		$criteria->compare('l_date',$this->l_date,true);
+		$criteria->compare('lobby_id',$this->lobby_id);
+		$criteria->compare('user_login_num',$this->user_login_num);
+		$criteria->compare('user_login_time',$this->user_login_time);
+		$criteria->compare('user_register',$this->user_register);
+		$criteria->compare('user_new',$this->user_new);
+		$criteria->mergeWith($this->dateRangeSearchCriteria('l_date',$this->l_date));
+	
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'pagination'=>array(
+						'pageSize'=>31,
+				),
+				'sort'=>array(
+						'defaultOrder'=>'l_date desc'
+				)
 		));
 	}
 }

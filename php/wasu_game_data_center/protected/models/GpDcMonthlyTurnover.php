@@ -69,16 +69,30 @@ class GpDcMonthlyTurnover extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'month' => 'Month',
-			'lobby_id' => 'Lobby',
+			'l_month' => '月份',
+			'lobby_id' => '大厅',
 			'cp_code' => 'Cp Code',
 			'action_id' => 'Action',
-			'sum' => 'Sum',
-			'user_no' => 'User No',
-			'user_time' => 'User Time',
+			'sum' => '总数',
+			'user_no' => '消费用户数',
+			'user_time' => '消费人次',
 			'arpu' => 'Arpu',
 		);
 	}
+	
+	
+	/**
+	 * Model behaviors
+	 */
+	public function behaviors()
+	{
+		return array(
+				'dateRangeSearch'=>array(
+						'class'=>'application.components.behaviors.EDateRangeSearchBehavior',
+				),
+		);
+	}
+	
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -92,7 +106,7 @@ class GpDcMonthlyTurnover extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('month',$this->month,true);
+// 		$criteria->compare('month',$this->month,true);
 		$criteria->compare('lobby_id',$this->lobby_id);
 		$criteria->compare('cp_code',$this->cp_code);
 		$criteria->compare('action_id',$this->action_id);
@@ -100,9 +114,16 @@ class GpDcMonthlyTurnover extends CActiveRecord
 		$criteria->compare('user_no',$this->user_no);
 		$criteria->compare('user_time',$this->user_time);
 		$criteria->compare('arpu',$this->arpu,true);
+		$criteria->mergeWith($this->dateRangeSearchCriteria('l_month',$this->l_month));
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+				'pagination'=>array(
+						'pageSize'=>31,
+				),
+				'sort'=>array(
+						'defaultOrder'=>'l_month desc'
+				)
 		));
 	}
 }

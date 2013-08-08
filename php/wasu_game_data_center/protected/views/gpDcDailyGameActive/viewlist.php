@@ -31,7 +31,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'type'=>'striped bordered condensed',
     'id'=>'gp-dc-daily-turnover-grid',
 	'cssFile'=>Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.bootstrap-theme.widgets.assets')).'/gridview/styles.css',
-	'filter'=>$model,
+// 	'filter'=>$model,
     'dataProvider'=>$model->search(),
 	'itemsCssClass'=>'zebra-striped',
     'columns'=>array(

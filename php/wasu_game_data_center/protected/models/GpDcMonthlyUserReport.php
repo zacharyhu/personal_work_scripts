@@ -86,6 +86,17 @@ class GpDcMonthlyUserReport extends CActiveRecord
 	}
 
 	/**
+	 * Model behaviors
+	 */
+	public function behaviors()
+	{
+		return array(
+				'dateRangeSearch'=>array(
+						'class'=>'application.components.behaviors.EDateRangeSearchBehavior',
+				),
+		);
+	}
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
@@ -97,7 +108,7 @@ class GpDcMonthlyUserReport extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('l_month',$this->l_month,true);
+// 		$criteria->compare('l_month',$this->l_month,true);
 		$criteria->compare('lobby_id',$this->lobby_id);
 		$criteria->compare('user_login_num',$this->user_login_num);
 		$criteria->compare('user_login_time',$this->user_login_time);
@@ -108,9 +119,18 @@ class GpDcMonthlyUserReport extends CActiveRecord
 		$criteria->compare('beyond_15',$this->beyond_15);
 		$criteria->compare('beyond_20',$this->beyond_20);
 		$criteria->compare('beyond_25',$this->beyond_25);
+		$criteria->mergeWith($this->dateRangeSearchCriteria('l_month',$this->l_month));
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+				'pagination'=>array(
+						'pageSize'=>31,
+				),
+				'sort'=>array(
+						'defaultOrder'=>'l_month desc'
+				)
 		));
 	}
+	
+	
 }

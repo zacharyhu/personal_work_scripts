@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'gp_dc_daily_turnover':
  * @property integer $id
- * @property string $date
+ * @property string $l_date
  * @property integer $lobby_id
  * @property integer $cp_code
  * @property integer $action_id
@@ -45,12 +45,12 @@ class GpDcDailyTurnover extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date, lobby_id, cp_code, action_id, sum, user_no, user_time, arpu', 'required'),
+			array('l_date, lobby_id, cp_code, action_id, sum, user_no, user_time, arpu', 'required'),
 			array('lobby_id, cp_code, action_id, sum, user_no, user_time', 'numerical', 'integerOnly'=>true),
 			array('arpu', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, date, lobby_id, cp_code, action_id, sum, user_no, user_time, arpu', 'safe', 'on'=>'search'),
+			array('id, l_date, lobby_id, cp_code, action_id, sum, user_no, user_time, arpu', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,7 +72,7 @@ class GpDcDailyTurnover extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'date' => '日期',
+			'l_date' => '日期',
 			'lobby_id' => '大厅/区域',
 			'cp_code' => 'Cp名称',
 			'action_id' => '行为编号',
@@ -120,14 +120,14 @@ class GpDcDailyTurnover extends CActiveRecord
 //         echo gettype($this->dateRangeSearchCriteria('date',$this->date));
 //         print_r("no no no ");
 //         exit;
-		$criteria->mergeWith($this->dateRangeSearchCriteria('date',$this->date));
+		$criteria->mergeWith($this->dateRangeSearchCriteria('l_date',$this->l_date));
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 				'pagination'=>array(
 						'pageSize'=>31,
 				),
 				'sort'=>array(
-						'defaultOrder'=>'date desc'
+						'defaultOrder'=>'l_date desc'
 						)
 		));
 	}

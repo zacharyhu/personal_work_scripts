@@ -51,14 +51,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'user_login_num',
 		'user_login_time',
 		'user_register',
-		/*
 		'user_new',
 		'beyond_5',
 		'beyond_10',
 		'beyond_15',
 		'beyond_20',
 		'beyond_25',
-		*/
 		array(
 			'class'=>'CButtonColumn',
 		),
